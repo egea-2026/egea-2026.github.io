@@ -37,12 +37,32 @@ for (const [path, heading] of [
   });
 }
 
-test("navigation reaches all pages and marks the current page", async ({
+test("navigation keeps the document, fonts, and header while updating each page", async ({
   page,
   isMobile,
 }) => {
+  const documents = [];
+  const fonts = [];
+  page.on("request", (request) => {
+    if (request.resourceType() === "document") documents.push(request.url());
+    if (request.resourceType() === "font") fonts.push(request.url());
+  });
   await page.goto("/index.html");
-  for (const name of ["About", "Program", "Speakers", "Information", "Home"]) {
+  await page.evaluate(() => {
+    window.navigationIdentity = {
+      header: document.querySelector("header"),
+      fonts: document.fonts,
+    };
+  });
+  for (const name of [
+    "About",
+    "Program",
+    "Speakers",
+    "Information",
+    "Home",
+    "Program",
+    "About",
+  ]) {
     if (isMobile)
       await page.getByRole("button", { name: "Open navigation" }).click();
     await page
@@ -57,7 +77,35 @@ test("navigation reaches all pages and marks the current page", async ({
         })
         .getByRole("link", { name, exact: true, includeHidden: true }),
     ).toHaveAttribute("aria-current", "page");
+    await expect(page.locator("h1")).toContainText(
+      name === "Home" ? "Enumerative" : name,
+    );
+    await expect(page).toHaveTitle(
+      name === "Home" ? /Enumerative Geometry/ : `${name} · EGEA 2026`,
+    );
+    await expect(page.locator("main")).toBeFocused();
+    expect(
+      await page.evaluate(
+        () =>
+          window.navigationIdentity?.header ===
+            document.querySelector("header") &&
+          window.navigationIdentity?.fonts === document.fonts,
+      ),
+    ).toBe(true);
+    if (name === "Program") {
+      await expect(
+        page.locator('#monday-talk-3 [data-math-ready="true"]'),
+      ).toHaveCount(1);
+      await expect(page.locator("#monday-talk-3 mjx-container")).toHaveCount(3);
+    }
+    await page.evaluate(() => document.fonts.ready);
+    if (isMobile)
+      await expect(
+        page.getByRole("button", { name: "Open navigation" }),
+      ).toBeVisible();
   }
+  expect(documents).toHaveLength(1);
+  expect(fonts.length).toBe(new Set(fonts).size);
 });
 
 test("about links reach the committees and footer dialogs restore focus", async ({
@@ -234,4 +282,39 @@ test("abstract math uses local STIX2 fonts and survives schedule interactions", 
     ),
   ).toBe(true);
   expect(failures).toEqual([]);
+});
+
+test("history restores pages and scroll while quick links and new tabs work", async ({
+  page,
+  context,
+}) => {
+  await page.goto("/index.html");
+  const learnMore = page.getByRole("link", { name: "Learn more" });
+  await learnMore.scrollIntoViewIfNeeded();
+  const originalScroll = await page.evaluate(() => scrollY);
+  await learnMore.click();
+  await expect(page).toHaveURL(/about\.html$/);
+  await expect(page.locator("main")).toBeFocused();
+  expect(await page.evaluate(() => scrollY)).toBe(0);
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+    "content",
+    /organizing committee/,
+  );
+  await page.goBack();
+  await expect(page.locator("h1")).toContainText("Enumerative");
+  await expect.poll(() => page.evaluate(() => scrollY)).toBe(originalScroll);
+  await page.goForward();
+  await expect(page.locator("h1")).toHaveText("About");
+  expect(await page.evaluate(() => scrollY)).toBe(0);
+  await page.reload();
+  await expect(page.locator("h1")).toHaveText("About");
+  const newTabPromise = context.waitForEvent("page");
+  await page
+    .getByRole("link", { name: "EGEA 2026 home", exact: true })
+    .first()
+    .click({ modifiers: ["Control"] });
+  const newTab = await newTabPromise;
+  await expect(newTab.locator("h1")).toContainText("Enumerative");
+  await expect(page).toHaveURL(/about\.html$/);
+  await newTab.close();
 });

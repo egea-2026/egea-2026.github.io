@@ -17,10 +17,25 @@ export const conference = {
 export const navigation = [
   { id: "home", label: "Home", href: "./index.html" },
   { id: "about", label: "About", href: "./about.html" },
-  { id: "program", label: "Program", href: "./program.html" },
   { id: "speakers", label: "Speakers", href: "./speakers.html" },
+  { id: "program", label: "Program", href: "./program.html" },
   { id: "information", label: "Information", href: "./information.html" },
 ];
+const metadataIntroduction =
+  "Enumerative Geometry in East Asia 2026. December 7–11, 2026, at the Hong Kong University of Science and Technology. ";
+export const pageMetadata = Object.fromEntries(
+  navigation.map(({ id, label }) => [
+    id,
+    {
+      title: `${id === "home" ? `${conference.name} ${conference.year}` : label} · EGEA 2026`,
+      description:
+        metadataIntroduction +
+        (id === "about"
+          ? "Conference overview, organizing committee, and scientific committee."
+          : "Conference program, speakers, and visitor information."),
+    },
+  ]),
+);
 export const pageIntros = {
   about: "About the conference and the people bringing EGEA 2026 together.",
   speakers:

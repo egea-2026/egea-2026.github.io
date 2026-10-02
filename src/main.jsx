@@ -6,40 +6,28 @@ import About from "./pages/About";
 import Speakers from "./pages/Speakers";
 import Program from "./pages/Program";
 import Information from "./pages/Information";
+import usePageNavigation from "./hooks/usePageNavigation";
 import "./theme.css";
 import "./styles.css";
 
-const route =
-  window.location.pathname
-    .split("/")
-    .filter(Boolean)
-    .pop()
-    ?.replace(/\.html$/, "") || "index";
-const page =
-  {
-    index: "home",
-    about: "about",
-    program: "program",
-    speakers: "speakers",
-    information: "information",
-    info: "information",
-  }[route] || "home";
-const Page = {
+const pages = {
   home: Home,
   about: About,
   program: Program,
   speakers: Speakers,
   information: Information,
-}[page];
+};
 function App() {
+  const { page, main, route } = usePageNavigation();
+  const Page = pages[page];
   return (
     <div className={`site page-${page}`}>
       <div className="page-art" aria-hidden="true" />
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
-      <Header page={page} />
-      <main id="main-content">
+      <Header page={page} route={route} />
+      <main id="main-content" ref={main} tabIndex={-1}>
         <Page />
       </main>
       <Footer />

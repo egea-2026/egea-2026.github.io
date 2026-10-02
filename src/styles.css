@@ -2004,3 +2004,8 @@ summary::-webkit-details-marker {
   overflow-y: hidden;
   padding-block: 0.2em;
 }
+
+/* The main landmark receives focus after navigation without a page-sized ring. */
+#main-content:focus {
+  outline: none;
+}

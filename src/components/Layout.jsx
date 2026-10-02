@@ -18,9 +18,10 @@ export function Brand({ footer = false }) {
     </a>
   );
 }
-export function Header({ page }) {
+export function Header({ page, route }) {
   const [open, setOpen] = useState(false);
   const toggle = useRef(null);
+  useEffect(() => setOpen(false), [route]);
   useEffect(() => {
     const close = (e) => {
       if (e.key === "Escape") {

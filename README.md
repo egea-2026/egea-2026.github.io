@@ -49,6 +49,7 @@ Committee names and affiliations are stored in `src/data/about.js`. Replace the 
 - `src/components/`: shared header, footer, dialogs, icons, and location overview.
 - `src/pages/`: Home, About, Program, Speakers, and Information layouts.
 - `src/data/`: editable conference content.
+- Internal links update the React page while keeping the header, footer, styles, and loaded fonts mounted. Browser Back/Forward restores the route and scroll position; modified clicks and external links keep their native behavior.
 - Five HTML entry points support direct links and refreshes on static hosting, including GitHub Pages; no server-side route fallback is needed.
 - The STIX Two Text fonts are bundled locally under the SIL Open Font License (`public/fonts/OFL.txt`). No external fonts, analytics, image services, or application backend are required.
 
