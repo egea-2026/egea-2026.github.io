@@ -494,6 +494,14 @@ summary::-webkit-details-marker {
   color: var(--color-link);
   margin-bottom: 13px;
 }
+.committee-section .person:first-child > .short-rule {
+  display: none;
+}
+@media (min-width: 701px) {
+  .committee-section .person[data-column-start] > .short-rule {
+    display: none;
+  }
+}
 .person-name {
   font-size: 30px;
   line-height: 1.12;
@@ -578,6 +586,11 @@ summary::-webkit-details-marker {
 }
 .event-wrap {
   position: relative;
+  container-type: inline-size;
+}
+.event-wrap:hover,
+.event-wrap:focus-within {
+  z-index: 15;
 }
 .event-button:hover,
 .event-button:focus-visible {
@@ -585,11 +598,13 @@ summary::-webkit-details-marker {
   color: var(--color-accent);
 }
 .event-preview {
+  --preview-offset: calc(200cqw / 3);
   pointer-events: auto;
   position: absolute;
-  left: 50%;
+  left: var(--preview-offset);
   top: 100%;
   width: 310px;
+  min-width: 100%;
   z-index: 15;
   text-align: left;
   background: var(--color-surface);
@@ -599,10 +614,6 @@ summary::-webkit-details-marker {
   padding: 15px;
   opacity: 0;
   visibility: hidden;
-  /* A short dismissal delay lets the pointer cross into the preview. */
-  transition:
-    opacity 0.12s ease 0.18s,
-    visibility 0s linear 0.3s;
 }
 .event-preview strong {
   font-weight: 400;
@@ -633,11 +644,12 @@ summary::-webkit-details-marker {
 .event-wrap:focus-within .event-preview {
   opacity: 1;
   visibility: visible;
-  transition-delay: 0s;
 }
 .week-table td:nth-last-child(-n + 2) .event-preview {
+  /* Keep the rightmost previews inside the viewport. */
+  --preview-offset: 0px;
   left: auto;
-  right: 20%;
+  right: 0;
 }
 .mobile-event-arrow,
 .mobile-schedule {
