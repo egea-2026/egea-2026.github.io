@@ -1,0 +1,21 @@
+{
+  "tool": "Built-in image_gen.imagegen",
+  "assets": [
+    {
+      "path": "public/images/campus.webp",
+      "prompt": "Use case: illustration-story. Asset type: conference website hero illustration, landscape 3:2. Create an exquisite traditional Chinese ink and muted watercolor painting on warm ivory rice paper of the Hong Kong University of Science and Technology campus overlooking Clear Water Bay. Broad calm blue-gray sea, layered misty mountains on horizon, tiny Chinese sailboats, pale modern stepped campus buildings nestled on forested hills at right and foreground, a vivid vermilion red curved sundial sculpture in a circular plaza near lower center. Fine architectural details, sophisticated hand-painted brushwork, charcoal and sage foliage, atmospheric pale gray mountains. Composition full scenic image, soft irregular deckled painted edges fading into off-white #f7f6f2 paper. No words, letters, logos, frames, or typography. This is evocative artwork, not a map or a photograph."
+    },
+    {
+      "path": "public/images/landscape.webp",
+      "prompt": "Use case: illustration-story. Asset type: wide seamless-feeling decorative background artwork for an elegant academic conference website, 3:2 landscape composition. Traditional Chinese shan shui ink wash on very pale warm ivory white rice paper #f7f6f2. Mostly empty paper in left two thirds and center for overlaid text. At the far right: beautiful layered misty light gray mountains descending into a calm lake, detailed rocky cliff with a tiny traditional pavilion, elegant pine trees, two small dark sailboats below. A slender dark leafy bamboo branch enters from the very top right corner. At bottom edge delicate pale mountains and water fade to empty paper. A few small distant flying birds. Muted charcoal grey, whisper of blue grey, no bright colors. Very refined fine brushwork, abundant luminous negative space, feathered edges. No text, border, letters, watermark, or UI."
+    },
+    {
+      "path": "public/images/hong-kong.webp",
+      "prompt": "Create a refined ink and muted watercolor six-panel Hong Kong illustration atlas. Exactly 3 columns by 2 rows of equal rectangular scenes, no gutters, no labels, no text. Overall landscape 3:2. Top row: Victoria Harbour skyline and junk boat; Victoria Peak panorama over city and green mountains; green white Star Ferry boat. Bottom row: M+ Museum waterfront architecture; Temple Street red lanterns and pedestrians; Sai Kung coastal islands fishing boats. Traditional Chinese ink wash, warm ivory rice paper, blue grey and sage, very detailed fine brushwork. Separate complete composition in every cell."
+    },
+    {
+      "path": "public/images/landscape-mobile.webp",
+      "prompt": "Use case: illustration-story. Asset type: portrait background for mobile academic conference website. Create an exquisite traditional Chinese shan shui ink wash painting, portrait 2:3 aspect ratio, warm very pale ivory rice paper. The left 70 percent must be almost completely empty luminous paper for black overlaid text. Delicate misty gray mountains confined to the upper right quarter and far right edge. A refined small dark leafy bamboo branch enters from top right corner. In the lower right third a narrow rocky cliff with a tiny traditional pavilion and fine pine trees, a pair of tiny sailboats on calm pale water. A delicate thin ribbon of distant mountains along the very bottom. All artwork softly fading into ivory paper toward the left. Light atmospheric grayscale with muted blue grey, graceful handpainted brushwork. No text, typography, frame, border, watermark or UI."
+    }
+  ]
+}

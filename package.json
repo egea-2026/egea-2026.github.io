@@ -1,0 +1,28 @@
+{
+  "name": "egea-2026",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "playwright test",
+    "format": "prettier --write src tests scripts *.js *.html README.md",
+    "format:check": "prettier --check src tests scripts *.js *.html README.md",
+    "predev": "node scripts/prepare-mathjax.mjs",
+    "prebuild": "node scripts/prepare-mathjax.mjs"
+  },
+  "dependencies": {
+    "@mathjax/mathjax-stix2-font": "4.1.3",
+    "mathjax": "4.1.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.51.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "prettier": "^3.9.9",
+    "vite": "^6.1.0"
+  }
+}

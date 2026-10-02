@@ -1,0 +1,84 @@
+/* Site-wide design tokens. Change these once to update every page. */
+:root {
+  --color-background: #f7f6f2;
+  --color-text: #202020;
+  --color-text-muted: #52677f;
+  --color-link: #385c8b;
+  --color-accent: #176365;
+  --color-border: #cdd3da;
+  --color-border-strong: #8097b3;
+  --color-surface: #faf9f6;
+  --color-surface-subtle: #ffffff25;
+  --color-surface-raised: #ffffff99;
+  --color-icon-surface: #e0e6e9;
+  --color-hover: #e7eeeb;
+  --color-selected: #dbe4eb70;
+  --color-selection: #d7e6e4;
+  --color-backdrop: #16232d60;
+  --shadow-menu: 0 12px 24px #172f3215;
+  --shadow-preview: 0 5px 16px #18202f30;
+  --shadow-dialog: 0 20px 80px #10202340;
+
+  --font-body: "STIX Two Text", Georgia, "Times New Roman", serif;
+  --page-gutter: 48px;
+  --content-width: 1120px;
+  --content-width-wide: 1320px;
+  --header-height: 84px;
+  --brand-size: 29px;
+  --navigation-gap: 42px;
+  --navigation-size: 16px;
+  --heading-padding-top: 31px;
+  --heading-padding-bottom: 39px;
+  --heading-size: 70px;
+  --heading-tracking: -3px;
+  --heading-margin: 9px 0 13px;
+  --heading-rule-margin: 26px 0 22px;
+  --intro-size: 24px;
+  --intro-width: 770px;
+}
+
+/* Responsive tokens are shared by the header, content, and footer. */
+@media (min-width: 1600px) {
+  :root {
+    --heading-padding-top: 45px;
+  }
+}
+@media (max-width: 1150px) {
+  :root {
+    --page-gutter: 32px;
+  }
+}
+@media (min-width: 701px) and (max-width: 900px) {
+  :root {
+    --navigation-gap: 26px;
+    --intro-size: 23px;
+  }
+}
+@media (max-width: 700px) {
+  :root {
+    --page-gutter: 22px;
+    --header-height: 87px;
+    --brand-size: 27px;
+    --navigation-gap: 0;
+    --navigation-size: 21px;
+    --heading-padding-top: 28px;
+    --heading-padding-bottom: 30px;
+    --heading-size: 56px;
+    --heading-tracking: -2.7px;
+    --heading-margin: 10px 0 16px;
+    --heading-rule-margin: 19px 0;
+    --intro-size: 22px;
+  }
+}
+@media (max-width: 370px) {
+  :root {
+    --page-gutter: 16px;
+    --heading-size: 49px;
+  }
+}
+@media print {
+  :root {
+    --page-gutter: 0px;
+    --header-height: 50px;
+  }
+}
