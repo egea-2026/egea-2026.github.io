@@ -65,7 +65,9 @@ npm run preview
 
 `npm run preview` rebuilds the site first so the preview includes the latest source changes.
 
-Publish the **contents of `dist/`** to any static host. Vite uses relative asset URLs so the build also works under a subdirectory. The source repository is not the deployable output; use the build above before publishing. No deployment is performed automatically.
+Pushing to `main` runs `.github/workflows/deploy.yml`, which installs the locked dependencies, builds the site, and publishes `dist/` to GitHub Pages. The workflow can also be run manually from the Actions tab. In the repository's **Settings → Pages → Build and deployment**, set **Source** to **GitHub Actions** once. The published site is available at <https://egea-2026.github.io/> after the first successful deployment.
+
+For other static hosts, publish the **contents of `dist/`**. Vite uses relative asset URLs, so the build also works under a subdirectory.
 
 ## Browser checks
 
