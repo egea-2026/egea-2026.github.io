@@ -466,12 +466,6 @@ summary::-webkit-details-marker {
 .about-overview p + p {
   margin-top: 16px;
 }
-.committee-notice {
-  margin-top: 24px;
-  color: var(--color-text-muted);
-  font-size: 15px;
-  line-height: 1.4;
-}
 .committee-section {
   margin-top: 32px;
 }
@@ -524,6 +518,13 @@ summary::-webkit-details-marker {
 .program-content {
   color: var(--color-text);
   padding-bottom: 60px;
+}
+.program-announcement {
+  min-height: 180px;
+  padding-top: 18px;
+  border-top: 1px solid var(--color-border-strong);
+  font-size: 24px;
+  line-height: 1.25;
 }
 .section-heading-row {
   display: flex;
@@ -861,6 +862,19 @@ summary::-webkit-details-marker {
   line-height: 1.4;
   color: var(--color-text-muted);
 }
+.transport-route-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  color: var(--color-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.transport-route-link .icon {
+  width: 15px;
+  height: 15px;
+}
 .practical-column {
   display: grid;
   gap: 19px;
@@ -875,7 +889,9 @@ summary::-webkit-details-marker {
 .location-map {
   display: block;
   width: 100%;
-  height: auto;
+  height: 260px;
+  border: 0;
+  background: var(--color-surface);
 }
 .location-caption {
   display: flex;
@@ -1721,7 +1737,7 @@ summary::-webkit-details-marker {
     gap: 21px;
   }
   .location-map {
-    max-height: 240px;
+    height: 240px;
   }
   .location-caption {
     padding: 11px 13px;

@@ -1,72 +1,58 @@
 import { conference } from "./conference";
 
-// Replace these sample records with confirmed names and affiliations.
-// IDs should remain unique within each committee; no layout changes are needed.
+// Edit committee membership here; the About layout updates automatically.
+// IDs are unique within each committee, including when someone serves on both.
 export const aboutPage = {
   paragraphs: [conference.about, conference.scope],
-  committeeNotice:
-    "Sample names are shown below for now. Committee membership and affiliations will be confirmed.",
   committees: [
-    {
-      id: "organizing-committee",
-      title: "Organizing Committee Members",
-      members: [
-        {
-          id: "alex-chen",
-          name: "Alex Chen",
-          affiliation: "Affiliation to be confirmed",
-        },
-        {
-          id: "maya-lin",
-          name: "Maya Lin",
-          affiliation: "Affiliation to be confirmed",
-        },
-        {
-          id: "daniel-park",
-          name: "Daniel Park",
-          affiliation: "Affiliation to be confirmed",
-        },
-        {
-          id: "emi-tanaka",
-          name: "Emi Tanaka",
-          affiliation: "Affiliation to be confirmed",
-        },
-      ],
-    },
     {
       id: "scientific-committee",
       title: "Scientific Committee Members",
       members: [
         {
-          id: "noah-kim",
-          name: "Noah Kim",
-          affiliation: "Affiliation to be confirmed",
+          id: "ionut-ciocan-fontanine",
+          name: "Ionut Ciocan-Fontanine",
+          affiliation: "Academia Sinica",
+        },
+        { id: "young-hoon-kiem", name: "Young-Hoon Kiem", affiliation: "KIAS" },
+        {
+          id: "yuan-pin-lee",
+          name: "Yuan-Pin Lee",
+          affiliation: "Academia Sinica",
+        },
+        { id: "jun-li", name: "Jun Li", affiliation: "SCMS" },
+        { id: "wei-ping-li", name: "Wei-Ping Li", affiliation: "HKUST" },
+        {
+          id: "todor-milanov",
+          name: "Todor Milanov",
+          affiliation: "Kavli IPMU",
         },
         {
-          id: "sofia-wang",
-          name: "Sofia Wang",
-          affiliation: "Affiliation to be confirmed",
+          id: "hiraku-nakajima",
+          name: "Hiraku Nakajima",
+          affiliation: "Kavli IPMU",
         },
+        { id: "yong-geun-oh", name: "Yong-Geun Oh", affiliation: "IBS-CGP" },
         {
-          id: "ren-sato",
-          name: "Ren Sato",
-          affiliation: "Affiliation to be confirmed",
+          id: "yongbin-ruan",
+          name: "Yongbin Ruan",
+          affiliation: "Zhejiang University",
         },
+        { id: "gang-tian", name: "Gang Tian", affiliation: "BICMR" },
         {
-          id: "hana-lee",
-          name: "Hana Lee",
-          affiliation: "Affiliation to be confirmed",
+          id: "yukinobu-toda",
+          name: "Yukinobu Toda",
+          affiliation: "Kavli IPMU",
         },
-        {
-          id: "leo-zhang",
-          name: "Leo Zhang",
-          affiliation: "Affiliation to be confirmed",
-        },
-        {
-          id: "yuna-mori",
-          name: "Yuna Mori",
-          affiliation: "Affiliation to be confirmed",
-        },
+      ],
+    },
+    {
+      id: "organizing-committee",
+      title: "Organizing Committee Members",
+      members: [
+        { id: "wei-ping-li", name: "Wei-Ping Li", affiliation: "HKUST" },
+        { id: "qingyuan-jiang", name: "Qingyuan Jiang", affiliation: "HKUST" },
+        { id: "quoc-ho", name: "Quoc Ho", affiliation: "HKUST" },
       ],
     },
   ],

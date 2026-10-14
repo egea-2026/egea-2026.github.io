@@ -33,13 +33,22 @@ export default function Information() {
                       {item.description}
                       <small>{item.note}</small>
                     </span>
-                    <span className="transport-duration">
-                      ~ {item.duration}
-                    </span>
+                    <span className="transport-duration">{item.duration}</span>
                     <Icon className="transport-arrow" />
                   </summary>
                   <div className="transport-expanded">
                     <p>{item.details}</p>
+                    {item.routeUrl && (
+                      <a
+                        className="transport-route-link"
+                        href={item.routeUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`View Google Maps transit route ${item.title.toLowerCase()} to HKUST`}
+                      >
+                        View route on Google Maps <Icon />
+                      </a>
+                    )}
                   </div>
                 </details>
               ))}

@@ -11,7 +11,8 @@
     "format": "prettier --write src tests scripts *.js *.html README.md",
     "format:check": "prettier --check src tests scripts *.js *.html README.md",
     "predev": "node scripts/prepare-mathjax.mjs",
-    "prebuild": "node scripts/prepare-mathjax.mjs"
+    "prebuild": "node scripts/prepare-mathjax.mjs",
+    "prepreview": "npm run build"
   },
   "dependencies": {
     "@mathjax/mathjax-stix2-font": "4.1.3",

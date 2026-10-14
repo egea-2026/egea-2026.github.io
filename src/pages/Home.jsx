@@ -26,7 +26,7 @@ export default function Home() {
         <figure className="campus-figure">
           <img
             src="./images/campus.webp"
-            alt="Ink and watercolor illustration of the HKUST campus, its red sundial, and Clear Water Bay"
+            alt="Ink and watercolor aerial view of the HKUST campus rising above clouds and mist"
             width="1536"
             height="1024"
             fetchPriority="high"

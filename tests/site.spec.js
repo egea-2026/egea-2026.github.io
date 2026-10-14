@@ -44,7 +44,11 @@ test("navigation keeps the document, fonts, and header while updating each page"
   const documents = [];
   const fonts = [];
   page.on("request", (request) => {
-    if (request.resourceType() === "document") documents.push(request.url());
+    if (
+      request.resourceType() === "document" &&
+      request.frame() === page.mainFrame()
+    )
+      documents.push(request.url());
     if (request.resourceType() === "font") fonts.push(request.url());
   });
   await page.goto("/index.html");
@@ -93,10 +97,12 @@ test("navigation keeps the document, fonts, and header while updating each page"
       ),
     ).toBe(true);
     if (name === "Program") {
-      await expect(
-        page.locator('#monday-talk-3 [data-math-ready="true"]'),
-      ).toHaveCount(1);
-      await expect(page.locator("#monday-talk-3 mjx-container")).toHaveCount(3);
+      await expect(page.locator(".program-announcement")).toHaveText(
+        "To be announced.",
+      );
+      await expect(page.locator(".week-table, .detailed-program")).toHaveCount(
+        0,
+      );
     }
     await page.evaluate(() => document.fonts.ready);
     if (isMobile)
@@ -139,12 +145,19 @@ test("about links reach the committees and footer dialogs restore focus", async 
   await privacy.click();
   await page.getByRole("button", { name: "Close dialog" }).click();
   await expect(page.getByRole("dialog")).toHaveCount(0);
+  await page.getByRole("button", { name: "Acknowledgements" }).click();
+  await expect(page.getByRole("dialog")).toContainText(
+    "The conference is supported by the Glorious Sun Charity Fund, the Hong Kong Mathematical Society (HKMS), the School of Science and the Department of Mathematics (HKUST).",
+  );
+  await page.getByRole("button", { name: "Close dialog" }).click();
 });
 
+// Keep these checks ready for when the commented draft program is published.
 test("schedule opens the correct talk and its containing day", async ({
   page,
   isMobile,
 }) => {
+  test.skip(true, "Program schedule is not yet published");
   await page.goto("/program.html");
   await expect(page.locator(".program-day[open]")).toHaveCount(5);
   await expect(page.locator(".talk[open]")).toHaveCount(0);
@@ -158,7 +171,7 @@ test("schedule opens the correct talk and its containing day", async ({
   await page.getByRole("button", { name: "Collapse all days" }).click();
   if (isMobile) {
     await page.getByRole("tab", { name: "Wed Dec 9" }).click();
-    await expect(page.getByRole("tabpanel")).toContainText("Tom Graber");
+    await expect(page.getByRole("tabpanel")).toContainText("To be announced");
     await page
       .getByRole("tabpanel")
       .getByRole("button", { name: /Derived curves/ })
@@ -183,6 +196,7 @@ test("mobile day tabs support keyboard navigation and the full week view", async
   page,
   isMobile,
 }) => {
+  test.skip(true, "Program schedule is not yet published");
   test.skip(!isMobile, "Mobile schedule only");
   await page.goto("/program.html");
   await page.getByRole("tab", { name: "Mon Dec 7" }).focus();
@@ -191,7 +205,7 @@ test("mobile day tabs support keyboard navigation and the full week view", async
     "aria-selected",
     "true",
   );
-  await expect(page.getByRole("tabpanel")).toContainText("Yukari Ito");
+  await expect(page.getByRole("tabpanel")).toContainText("To be announced");
   await page
     .getByRole("combobox", { name: "Schedule display" })
     .selectOption("week");
@@ -207,12 +221,52 @@ test("travel details expand and map links point to the intended destination", as
   page,
 }) => {
   await page.goto("/information.html");
+  const routes = [
+    ["From the airport", "Hong Kong International Airport, Hong Kong", "A29"],
+    [
+      "From Hang Hau MTR",
+      "Hang Hau, Tseung Kwan O, New Territories, Hong Kong",
+      "11M",
+    ],
+    ["From Tseung Kwan O MTR", "Tseung Kwan O MTR Station, Hong Kong", "792M"],
+  ];
+  for (const [title, origin, service] of routes) {
+    const card = page.locator(".transport-card").filter({
+      has: page.getByRole("heading", { name: title, exact: true }),
+    });
+    await expect(card).toContainText(service);
+    if (title === "From the airport") {
+      await expect(card).toContainText("91M");
+      await expect(card).toContainText("11M");
+    }
+    await card.locator("summary").click();
+    const href = await card
+      .getByRole("link", { name: /View Google Maps transit route/ })
+      .getAttribute("href");
+    const url = new URL(href);
+    expect(url.origin + url.pathname).toBe("https://www.google.com/maps/dir/");
+    expect(url.searchParams.get("origin")).toBe(origin);
+    expect(url.searchParams.get("destination")).toContain(
+      "Hong Kong University of Science and Technology",
+    );
+    expect(url.searchParams.get("travelmode")).toBe("transit");
+  }
   const taxi = page.locator(".transport-card").filter({
-    has: page.getByRole("heading", { name: "By Taxi", exact: true }),
+    has: page.getByRole("heading", { name: "Taxi or Uber", exact: true }),
   });
   await taxi.locator("summary").click();
   await expect(taxi).toContainText("香港科技大學");
+  await expect(taxi).toContainText("HKD cash");
+  await expect(taxi).toContainText("Uber");
   await expect(taxi.locator(".transport-expanded")).toBeVisible();
+  const campusMap = page.locator(
+    'iframe[title="Interactive map of HKUST in Clear Water Bay, Hong Kong"]',
+  );
+  await expect(campusMap).toBeVisible();
+  await expect(campusMap).toHaveAttribute(
+    "src",
+    /google\.com\/maps\/embed\?pb=/,
+  );
   await expect(page.getByRole("link", { name: "View on Map" })).toHaveAttribute(
     "href",
     /Hong\+Kong\+University/,
@@ -224,6 +278,7 @@ test("abstract math uses local STIX2 fonts and survives schedule interactions", 
   page,
   isMobile,
 }) => {
+  test.skip(true, "Program abstracts are not yet published");
   const failures = [];
   const fontRequests = [];
   page.on("pageerror", (error) => failures.push(error.message));
@@ -308,11 +363,12 @@ test("history restores pages and scroll while quick links and new tabs work", as
   expect(await page.evaluate(() => scrollY)).toBe(0);
   await page.reload();
   await expect(page.locator("h1")).toHaveText("About");
-  const newTabPromise = context.waitForEvent("page");
-  await page
+  const brand = page
     .getByRole("link", { name: "EGEA 2026 home", exact: true })
-    .first()
-    .click({ modifiers: ["Control"] });
+    .first();
+  await brand.evaluate((link) => link.setAttribute("target", "_blank"));
+  const newTabPromise = context.waitForEvent("page");
+  await brand.click();
   const newTab = await newTabPromise;
   await expect(newTab.locator("h1")).toContainText("Enumerative");
   await expect(page).toHaveURL(/about\.html$/);

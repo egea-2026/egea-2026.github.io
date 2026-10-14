@@ -1,57 +1,77 @@
+// The same campus embed used on HKUST's official contact page.
+export const campusMap = {
+  embedUrl:
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2194.3535706667176!2d114.26189251748933!3d22.336702957316167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3404046bc19c7e15:0x2bedd58f9cf841be!2sHong+Kong+University+of+Science+and+Technology+(HKUST)!5e0!3m2!1sen!2sus!4v1734949533453!5m2!1sen!2sus",
+};
+
 export const campusIntro =
-  "The Hong Kong University of Science and Technology (HKUST) is located in Clear Water Bay, on the southeastern coast of Kowloon. Here are the main ways to reach campus:";
+  "The Hong Kong University of Science and Technology (HKUST) is in Clear Water Bay. These public transport routes bring you to campus; check live directions before travelling.";
+
+const transitDirections = (origin) => {
+  const params = new URLSearchParams({
+    api: "1",
+    origin,
+    destination:
+      "Hong Kong University of Science and Technology, Clear Water Bay, Hong Kong",
+    travelmode: "transit",
+  });
+  return `https://www.google.com/maps/dir/?${params}`;
+};
+
 export const transport = [
   {
     icon: "plane",
-    title: "From Hong Kong International Airport",
+    title: "From the airport",
     description:
-      "Take the Airport Express to Kowloon or Hong Kong Station, then transfer to the MTR and take a taxi or minibus to HKUST.",
-    note: "Recommended route: Airport Express → Kowloon / Hong Kong → MTR → Taxi / Minibus",
-    duration: "60–75 min",
+      "Take bus A29, then connect to bus 91M or minibus 11M for HKUST.",
+    note: "Check Google Maps for the best connection.",
+    duration: "Varies",
     details:
-      "Allow additional time for transfers and traffic. Use the destination “Hong Kong University of Science and Technology, Clear Water Bay” when arranging the final taxi journey.",
+      "Transfer points and journey times vary. Use Google Maps for current public transport directions from the airport to HKUST.",
+    routeUrl: transitDirections("Hong Kong International Airport, Hong Kong"),
   },
   {
     icon: "train",
-    title: "By MTR + Taxi / Minibus",
-    description:
-      "Take the MTR to Hang Hau Station (Tseung Kwan O Line) or Choi Hung Station (Kwun Tong Line), then take a minibus or taxi to HKUST.",
-    note: "From Hang Hau: green minibus 11M. From Choi Hung: minibus 1A or 1M.",
-    duration: "20–30 min",
+    title: "From Hang Hau MTR",
+    description: "Use Exit B1 for green minibus 11M to HKUST.",
+    note: "Bus 91M from Exit B2 is another option.",
+    duration: "~ 20 min",
     details:
-      "The estimated time is for the connection from the MTR station to campus. Check the destination on the minibus and current service information before boarding.",
-  },
-  {
-    icon: "car",
-    title: "By Taxi",
-    description:
-      "Take a taxi directly to Hong Kong University of Science and Technology, Clear Water Bay.",
-    duration: "45–60 min",
-    note: "(from downtown)",
-    details:
-      "Show the driver the destination: 香港科技大學（清水灣）. Travel time varies with your starting point and traffic.",
+      "From Hang Hau Station, use Exit B1 and board green minibus 11M for HKUST. Alternatively, use Exit B2 and take bus 91M. Get off at HKUST.",
+    routeUrl: transitDirections(
+      "Hang Hau, Tseung Kwan O, New Territories, Hong Kong",
+    ),
   },
   {
     icon: "bus",
-    title: "Campus Shuttle / Local Transit",
-    description:
-      "Various green minibuses and buses serve HKUST from Hang Hau, Choi Hung and surrounding areas.",
-    note: "Please refer to on-site signage for the latest routes and schedules.",
-    duration: "20–30 min",
+    title: "From Tseung Kwan O MTR",
+    description: "Use Exit A1 for bus 792M to HKUST.",
+    note: "Tseung Kwan O is also known as TKO.",
+    duration: "~ 30 min",
     details:
-      "Use the campus map to find your building after arrival. Any conference-specific shuttle arrangements will be announced separately.",
+      "From Tseung Kwan O Station, use Exit A1 and board bus 792M towards Sai Kung. Get off at HKUST.",
+    routeUrl: transitDirections("Tseung Kwan O MTR Station, Hong Kong"),
+  },
+  {
+    icon: "car",
+    title: "Taxi or Uber",
+    description:
+      "Uber works in Hong Kong. You can also hail or call a taxi to HKUST.",
+    note: "Have HKD cash ready and save the destination in Traditional Chinese.",
+    duration: "Varies",
+    details:
+      "Show the taxi driver: 香港科技大學（清水灣）. Cash is a useful backup for a taxi fare; electronic payment options are also available. Travel time depends on your starting point and traffic.",
   },
 ];
 export const practicalDetails = [
-  { icon: "pin", label: "Venue", value: "Academic Building, HKUST" },
+  { icon: "pin", label: "Venue", value: "TBA" },
   {
     icon: "clipboard",
     label: "Registration Desk",
-    value: "Main foyer (Academic Building)",
+    value: "TBA",
   },
   { icon: "sun", label: "Weather", value: "Mild December weather (15–22°C)" },
   { icon: "coins", label: "Currency", value: "Hong Kong Dollar (HKD)" },
-  { icon: "message", label: "Language", value: "English and Cantonese" },
   { icon: "plug", label: "Power", value: "UK-style plug (Type G, 220V, 50Hz)" },
   {
     icon: "document",
@@ -90,10 +110,9 @@ export const destinations = [
     query: "Temple Street Hong Kong",
   },
   {
-    title: "Sai Kung / Clear Water Bay",
-    description:
-      "Beautiful coastline, hiking trails and relaxed seaside scenery, close to HKUST.",
-    query: "Sai Kung Hong Kong",
+    title: "Sai Kung",
+    description: "Stroll along the waterfront and enjoy the harbour views.",
+    query: "Sai Kung Waterfront Park, Hong Kong",
   },
 ];
 

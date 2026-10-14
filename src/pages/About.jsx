@@ -12,9 +12,6 @@ export default function About() {
             <p key={index}>{paragraph}</p>
           ))}
         </div>
-        {aboutPage.committeeNotice && (
-          <p className="committee-notice">{aboutPage.committeeNotice}</p>
-        )}
         {aboutPage.committees.map((committee) => (
           <section
             className="committee-section"

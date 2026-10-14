@@ -1,10 +1,14 @@
 import { useRef, useState } from "react";
 import { PageHeading } from "../components/Layout";
-import { speakers } from "../data/conference";
-import { days, timeSlots } from "../data/program";
+import {
+  days,
+  programAnnouncement,
+  speakerById,
+  timeSlots,
+} from "../data/program";
 import Icon from "../components/Icon";
 import MathText from "../components/MathText";
-const speakerFor = (event) => speakers.find((s) => s.id === event?.speaker);
+const speakerFor = (event) => speakerById[event?.speaker];
 const talkId = (day, index) => `${day.id}-talk-${index}`;
 
 function highlightTalk(target, reducedMotion) {
@@ -46,7 +50,11 @@ function ScheduleEvent({ event, day, index }) {
   const content = (
     <>
       <span>{event.label}</span>
-      {speaker && <span className="schedule-speaker">{speaker.name}</span>}
+      {(speaker || event.presenter) && (
+        <span className="schedule-speaker">
+          {speaker?.name || event.presenter}
+        </span>
+      )}
       <span className="schedule-room">({event.room})</span>
     </>
   );
@@ -151,6 +159,16 @@ export default function Program() {
       document.getElementById(`tab-${days[next].id}`).focus();
     }
   };
+  if (days.length === 0) {
+    return (
+      <>
+        <PageHeading page="program" />
+        <div className="program-content wide">
+          <p className="program-announcement">{programAnnouncement}</p>
+        </div>
+      </>
+    );
+  }
   return (
     <>
       <PageHeading page="program" />

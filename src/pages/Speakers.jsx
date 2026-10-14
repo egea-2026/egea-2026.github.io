@@ -1,4 +1,4 @@
-import { speakers } from "../data/conference";
+import { speakers } from "../data/speakers";
 import { PageHeading } from "../components/Layout";
 import PeopleList from "../components/PeopleList";
 export default function Speakers() {

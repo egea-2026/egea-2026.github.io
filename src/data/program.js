@@ -1,3 +1,20 @@
+import { speakers } from "./speakers";
+
+// Schedule speaker IDs must refer to the invited roster in speakers.js.
+export const speakerById = Object.fromEntries(
+  speakers.map((speaker) => [speaker.id, speaker]),
+);
+
+export const programAnnouncement = "To be announced.";
+export const timeSlots = [];
+export const days = [];
+
+/*
+Draft program retained for later editing. Once the schedule, titles, and
+abstracts are confirmed, remove the two temporary empty exports above and
+uncomment the definitions below. The existing Program page will then render
+the timetable and talk details again.
+
 // Schedule cells and detailed talks share the same records to prevent content drift.
 export const timeSlots = [
   "08:30 – 09:00",
@@ -37,7 +54,7 @@ export const days = [
       }),
       coffee(),
       event("Plenary Lecture", "LT-A", {
-        speaker: "voisin",
+        presenter: "To be announced",
         title: "Plenary Lecture: Enumerative geometry and beyond",
         // Sample TeX: String.raw preserves backslashes for MathJax.
         abstract: String.raw`For a smooth projective variety \(X\), we consider curve classes \(\beta \in H_2(X,\mathbb{Z})\) and moduli spaces of stable maps. A typical Gromov–Witten invariant is written
@@ -69,7 +86,7 @@ export const days = [
     events: [
       event("Coffee", "Atrium"),
       event("Plenary Lecture", "LT-A", {
-        speaker: "ito",
+        presenter: "To be announced",
         title: "Gromov–Witten theory and its applications",
         abstract:
           "I will survey recent advances in Gromov–Witten theory, with an emphasis on new computational techniques and applications to Fano varieties and mirror symmetry. Several joint works and open questions will be discussed.",
@@ -78,7 +95,7 @@ export const days = [
       contributed("LT-B"),
       lunch(),
       event("Plenary Lecture", "LT-A", {
-        speaker: "liu",
+        presenter: "To be announced",
         title: "Moduli of sheaves and curve counting",
         abstract:
           "This lecture explores moduli spaces of sheaves and their role in curve counting, with a discussion of recent results and open problems.",
@@ -97,14 +114,14 @@ export const days = [
     events: [
       event("Coffee", "Atrium"),
       event("Plenary Lecture", "LT-A", {
-        speaker: "graber",
+        presenter: "To be announced",
         title: "Localization and enumerative geometry",
         abstract:
           "An exploration of localization techniques and their applications to enumerative problems in algebraic geometry.",
       }),
       coffee(),
       event("Special Session", "LT-A", {
-        speaker: "li",
+        presenter: "To be announced",
         title: "Derived curves in enumerative geometry",
         abstract:
           "We study derived enhancements of curve counting theories and their applications to Gromov–Witten invariants.",
@@ -113,7 +130,7 @@ export const days = [
       contributed("LT-B"),
       coffee(),
       event("Plenary Lecture", "LT-A", {
-        speaker: "pandharipande",
+        presenter: "To be announced",
         title: "Enumerative geometry in higher dimensions",
         abstract:
           "I will discuss recent progress on enumerative invariants in higher dimensions, including stable pair theory, derived algebraic geometry methods, and their interconnections with string theory. This talk will also outline several conjectures and directions for future research.",
@@ -130,7 +147,7 @@ export const days = [
     events: [
       event("Coffee", "Atrium"),
       event("Plenary Lecture", "LT-A", {
-        speaker: "maulik",
+        presenter: "To be announced",
         title: "Plenary Lecture",
         abstract: "The title and abstract for this lecture will be announced.",
       }),
@@ -162,7 +179,7 @@ export const days = [
     events: [
       event("Coffee", "Atrium"),
       event("Plenary Lecture", "LT-A", {
-        speaker: "thomas",
+        presenter: "To be announced",
         title: "Plenary Lecture",
         abstract: "The title and abstract for this lecture will be announced.",
       }),
@@ -181,3 +198,4 @@ export const days = [
     ],
   },
 ];
+*/

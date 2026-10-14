@@ -10,16 +10,16 @@ export const conference = {
   about:
     "Enumerative Geometry in East Asia 2026 (EGEA 2026) will be held at the Hong Kong University of Science and Technology from December 7 to 11, 2026. The conference aims to bring together researchers working on enumerative problems in algebraic geometry and related areas, fostering exchange and collaboration, with a particular focus on the East Asian mathematical community.",
   scope:
-    "The scientific program includes plenary lectures, contributed talks, and discussions on curve counting, Gromov–Witten theory, moduli spaces, and the connections between enumerative geometry and mathematical physics.",
+    "The scientific program includes plenary lectures and discussions on curve counting, Gromov–Witten theory, moduli spaces, and the connections between enumerative geometry and mathematical physics.",
   mapUrl:
     "https://www.google.com/maps/search/?api=1&query=Hong+Kong+University+of+Science+and+Technology",
 };
 export const navigation = [
   { id: "home", label: "Home", href: "./index.html" },
-  { id: "about", label: "About", href: "./about.html" },
   { id: "speakers", label: "Speakers", href: "./speakers.html" },
   { id: "program", label: "Program", href: "./program.html" },
   { id: "information", label: "Information", href: "./information.html" },
+  { id: "about", label: "About", href: "./about.html" },
 ];
 const metadataIntroduction =
   "Enumerative Geometry in East Asia 2026. December 7–11, 2026, at the Hong Kong University of Science and Technology. ";
@@ -67,52 +67,6 @@ export const quickLinks = [
     href: "./information.html",
   },
 ];
-export const speakers = [
-  { id: "voisin", name: "Claire Voisin", affiliation: "Collège de France" },
-  { id: "ito", name: "Yukari Ito", affiliation: "The University of Tokyo" },
-  {
-    id: "liu",
-    name: "Chiu-Chu Melissa Liu",
-    affiliation: "Columbia University",
-  },
-  { id: "fujii", name: "Akiko Fujii", affiliation: "Osaka University" },
-  {
-    id: "graber",
-    name: "Tom Graber",
-    affiliation: "California Institute of Technology",
-  },
-  {
-    id: "nakajima",
-    name: "Hiraku Nakajima",
-    affiliation: "The University of Tokyo",
-  },
-  {
-    id: "maulik",
-    name: "Davide Maulik",
-    affiliation: "Massachusetts Institute of Technology",
-  },
-  { id: "li", name: "Jun Li", affiliation: "Stanford University" },
-  {
-    id: "birkar",
-    name: "Caucher Birkar",
-    affiliation: "University of Cambridge",
-  },
-  {
-    id: "pandharipande",
-    name: "Rahul Pandharipande",
-    affiliation: "ETH Zürich",
-  },
-  {
-    id: "leung",
-    name: "Conan Leung",
-    affiliation: "Institute of Mathematics, Academia Sinica",
-  },
-  {
-    id: "thomas",
-    name: "Richard Thomas",
-    affiliation: "Imperial College London",
-  },
-];
 export const footerPanels = {
   Contact: {
     title: "Contact & conference updates",
@@ -126,14 +80,13 @@ export const footerPanels = {
     title: "Privacy",
     paragraphs: [
       "This static website does not use analytics, advertising cookies, or registration forms, and does not store personal information in your browser.",
-      "External links, including maps and university websites, are governed by their own privacy policies. The website hosting provider may process standard server logs.",
+      "The Information page embeds Google Maps. Loading that map connects your browser to Google, which applies its own privacy policies. Other external links and the website hosting provider may also process standard connection information.",
     ],
   },
   Acknowledgements: {
     title: "Acknowledgements",
     paragraphs: [
-      "The visual design celebrates the ink-wash landscape tradition of East Asia and the coastal setting of the Hong Kong University of Science and Technology.",
-      "The campus, landscape, and Hong Kong illustrations were generated with AI for this website. They are artistic interpretations of the locations depicted.",
+      "The conference is supported by the Glorious Sun Charity Fund, the Hong Kong Mathematical Society (HKMS), the School of Science and the Department of Mathematics (HKUST).",
     ],
   },
 };
