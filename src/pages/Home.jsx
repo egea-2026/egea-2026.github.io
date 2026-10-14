@@ -45,15 +45,16 @@ export default function Home() {
         ))}
       </nav>
       <section id="about" className="about-section">
-        <div className="about-landscape" aria-hidden="true" />
-        <div className="about-copy">
-          <h2 className="eyebrow">About the conference</h2>
-          <span className="short-rule" />
-          <p>{conference.about}</p>
-          <a className="outline-button" href="./about.html">
-            Learn more
-            <Icon />
-          </a>
+        <div className="narrow">
+          <div className="about-copy">
+            <h2 className="eyebrow">About the conference</h2>
+            <span className="short-rule" />
+            <p>{conference.about}</p>
+            <a className="outline-button" href="./about.html">
+              Learn more
+              <Icon />
+            </a>
+          </div>
         </div>
       </section>
     </>
