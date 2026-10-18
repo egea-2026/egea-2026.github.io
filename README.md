@@ -39,7 +39,7 @@ abstract: String.raw`For \(X = \mathbb{P}^2\), consider the series
 
 When abstracts are published, MathJax 4 uses the STIX2 math font and loads only on the Program page. `MathText` handles both abstract details and timetable previews, including mobile day changes. The runtime and font files are served locally; `predev` and `prebuild` generate `public/vendor/mathjax/` from the pinned npm dependencies. This generated folder is ignored by Git and included in `dist/` automatically. The commented first Monday plenary abstract contains sample inline and display mathematics.
 
-Speaker order is column-first on desktop and follows the same reading order on mobile. Change the list in `src/data/speakers.js` to update both views. The desktop columns rebalance automatically when speakers are added or removed.
+The Speakers page sorts names by their final word (last name) before displaying them. The list reads down the first column and then the second on desktop, and keeps the same order on mobile. Edit `src/data/speakers.js` to update names and affiliations; its entry order does not control the displayed order. The desktop columns rebalance automatically when speakers are added or removed.
 
 The desktop mockups are the content reference where mobile and desktop copy differ. The mockups contain illustrative conference details: organizers should confirm speaker affiliations, titles, abstracts, rooms, travel estimates, and the timetable before publication. Registration, accommodation, and contact information absent from the mockups are explicitly marked as forthcoming. Add confirmed details to the data files when available.
 
