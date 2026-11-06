@@ -22,6 +22,15 @@ export default function Home() {
           </p>
           <span className="short-rule" />
           <p className="hero-introduction">{conference.introduction}</p>
+          <a
+            className="outline-button hero-registration"
+            href={conference.registrationUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Register now!
+            <Icon />
+          </a>
         </div>
         <figure className="campus-figure">
           <img

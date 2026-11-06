@@ -410,6 +410,19 @@ summary::-webkit-details-marker {
 .outline-button:hover {
   background: var(--color-hover);
 }
+.hero-registration {
+  margin-top: 20px;
+  min-height: 44px;
+  padding: 10px 22px;
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-background);
+}
+.hero-registration:hover {
+  border-color: var(--color-link);
+  background: var(--color-link);
+  color: var(--color-background);
+}
 .site-footer {
   margin-top: auto;
   border-top: 1px solid var(--color-border);
@@ -772,113 +785,72 @@ summary::-webkit-details-marker {
 /* Travel, campus overview, and destination cards. */
 .information-content {
   color: var(--color-text);
-  padding-bottom: 32px;
+  padding-bottom: 48px;
 }
 .information-grid {
   display: grid;
-  grid-template-columns: 1.85fr 1fr;
-  gap: 32px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 28px 48px;
+  align-items: start;
 }
-.section-title {
-  border-bottom: 1px solid var(--color-border-strong);
-  padding-bottom: 7px;
-  margin-bottom: 9px;
-  letter-spacing: 4px;
+.getting-here,
+.practical-details {
+  min-width: 0;
+  grid-column: 1;
 }
-.campus-intro {
-  font-size: 17px;
-  line-height: 1.25;
-  margin-bottom: 12px;
+.campus-documents {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
-.transport-list {
+.campus-documents a {
   display: grid;
-  gap: 8px;
-}
-.transport-card {
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  background: var(--color-surface-subtle);
-}
-.transport-card > summary {
-  display: grid;
-  grid-template-columns: 58px 1.1fr 2fr 100px 20px;
-  gap: 16px;
+  grid-template-columns: 24px minmax(0, 1fr) 20px;
+  gap: 14px;
   align-items: center;
-  padding: 13px 12px;
-}
-.transport-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: var(--color-icon-surface);
-  display: grid;
-  place-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-border);
   color: var(--color-link);
-}
-.transport-icon .icon {
-  width: 29px;
-  height: 29px;
-  stroke-width: 1.8;
-}
-.transport-card h3 {
-  font-size: 18px;
-  line-height: 1.15;
-}
-.transport-description {
-  font-size: 15px;
-  line-height: 1.25;
-}
-.transport-description small {
-  display: block;
-  font-size: 12px;
-  line-height: 1.3;
-  margin-top: 7px;
-}
-.transport-duration {
-  text-align: center;
-  white-space: nowrap;
-  font-size: 16px;
-}
-.transport-arrow {
-  width: 18px;
-}
-.transport-card[open] .transport-arrow {
-  transform: rotate(90deg);
-}
-.transport-expanded {
-  padding: 3px 25px 17px 86px;
-  font-size: 15px;
+  font-size: 20px;
   line-height: 1.4;
+}
+.campus-documents small {
+  font-size: 14px;
   color: var(--color-text-muted);
+  white-space: nowrap;
 }
-.transport-route-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 8px;
-  color: var(--color-link);
-  text-decoration: underline;
-  text-underline-offset: 3px;
+.campus-documents a > .icon:last-child {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s;
 }
-.transport-route-link .icon {
-  width: 15px;
-  height: 15px;
+.campus-documents a:hover {
+  color: var(--color-accent);
 }
-.practical-column {
-  display: grid;
-  gap: 19px;
-  align-content: start;
+.campus-documents a:hover > .icon:last-child {
+  transform: translateX(3px);
+}
+.campus-location {
+  display: flex;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: stretch;
+  min-width: 0;
 }
 .location-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   border: 1px solid var(--color-border);
   border-radius: 4px;
-  background: var(--color-surface-subtle);
+  background: var(--color-surface);
   overflow: hidden;
 }
 .location-map {
   display: block;
+  flex: 1;
   width: 100%;
-  height: 260px;
+  min-height: 320px;
   border: 0;
   background: var(--color-surface);
 }
@@ -886,61 +858,74 @@ summary::-webkit-details-marker {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  padding: 10px 13px;
+  gap: 16px;
+  padding: 18px 20px;
   border-top: 1px solid var(--color-border);
 }
 .location-caption .eyebrow {
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 2px;
 }
 .location-caption p {
-  font-size: 14px;
-  margin-top: 3px;
+  font-size: 18px;
+  margin-top: 5px;
+  line-height: 1.3;
 }
 .map-link {
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 13px;
+  color: var(--color-link);
+  font-size: 15px;
   white-space: nowrap;
 }
 .map-link .icon {
   width: 17px;
+  height: 17px;
 }
 .practical-list > div {
   display: grid;
-  grid-template-columns: 43% 1fr;
-  padding: 7px 7px;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.2fr);
+  gap: 16px;
+  padding: 10px 0;
   border-bottom: 1px solid var(--color-border);
-  gap: 10px;
-  font-size: 14px;
-  line-height: 1.25;
+  font-size: 16px;
+  line-height: 1.4;
 }
 .practical-list dt {
   display: flex;
-  align-items: center;
-  gap: 19px;
+  align-items: flex-start;
+  gap: 12px;
 }
 .practical-list .icon {
-  width: 19px;
-  height: 19px;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  color: var(--color-text-muted);
+}
+.practical-list dd {
+  color: var(--color-text-muted);
 }
 .around-section {
-  margin-top: 28px;
+  margin-top: 44px;
 }
 .around-section > p {
-  font-size: 17px;
-  margin-bottom: 13px;
+  font-size: 18px;
+  line-height: 1.5;
+  margin: 14px 0 22px;
 }
 .destination-grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 13px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
 }
 .destination-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
   border: 1px solid var(--color-border);
-  border-radius: 3px;
+  border-radius: 4px;
   overflow: hidden;
   background: var(--color-surface-subtle);
   transition:
@@ -952,49 +937,148 @@ summary::-webkit-details-marker {
   transform: translateY(-3px);
 }
 .destination-image {
-  width: 100%;
-  height: 113px;
   display: block;
+  flex-shrink: 0;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2.2;
   overflow: hidden;
   min-width: 0;
 }
 .destination-copy {
-  padding: 9px 10px 11px;
+  padding: 16px 18px 20px;
 }
 .destination-copy h3 {
-  font-size: 14px;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 4px;
-}
-.destination-copy h3 .icon {
-  width: 15px;
-  height: 15px;
-  align-self: center;
-}
-.destination-copy p {
-  font-size: 15px;
-  line-height: 1.15;
-  margin-top: 7px;
-}
-.visitor-updates {
-  margin-top: 20px;
-  font-size: 15px;
-  max-width: 800px;
-}
-.visitor-updates summary {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 20px;
+  line-height: 1.25;
 }
-.visitor-updates summary .icon {
-  width: 16px;
+.destination-copy h3 .icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: var(--color-link);
 }
-.visitor-updates p {
-  padding-top: 10px;
-  line-height: 1.4;
+.destination-copy p {
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--color-text-muted);
+  margin-top: 9px;
 }
+@media (max-width: 900px) {
+  .information-grid {
+    gap: 28px;
+  }
+  .location-caption {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 16px;
+  }
+  .destination-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 700px) {
+  .information-content {
+    padding-bottom: 34px;
+  }
+  .information-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+  .getting-here,
+  .practical-details,
+  .campus-location {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .campus-documents a {
+    font-size: 19px;
+  }
+  .location-map {
+    flex: none;
+    height: 280px;
+    min-height: 0;
+  }
+  .location-caption {
+    gap: 12px;
+  }
+  .location-caption p {
+    font-size: 17px;
+  }
+  .map-link {
+    font-size: 14px;
+  }
+  .practical-list > div {
+    font-size: 16px;
+  }
+  .around-section {
+    margin-top: 32px;
+  }
+  .around-section > p {
+    font-size: 16px;
+    margin-bottom: 18px;
+  }
+  .destination-grid {
+    gap: 14px;
+  }
+  .destination-copy {
+    padding: 14px;
+  }
+  .destination-copy h3 {
+    font-size: 19px;
+  }
+}
+@media (max-width: 480px) {
+  .destination-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  .destination-card {
+    display: grid;
+    grid-template-columns: 32% minmax(0, 1fr);
+  }
+  .destination-image {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+  .destination-copy {
+    padding: 15px;
+  }
+  .destination-copy h3 {
+    font-size: 18px;
+  }
+  .destination-copy p {
+    font-size: 15px;
+    line-height: 1.4;
+    margin-top: 7px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .destination-card:hover,
+  .campus-documents a:hover > .icon:last-child {
+    transform: none;
+  }
+}
+@media print {
+  .campus-documents li,
+  .location-card,
+  .practical-list > div,
+  .destination-card {
+    break-inside: avoid;
+  }
+}
+
+.section-title {
+  border-bottom: 1px solid var(--color-border-strong);
+  padding-bottom: 7px;
+  margin-bottom: 9px;
+  letter-spacing: 4px;
+}
+
 /* Accessible native dialogs and keyboard helpers. */
 .modal {
   border: 1px solid var(--color-border);
@@ -1098,47 +1182,7 @@ summary::-webkit-details-marker {
   .quick-link p {
     font-size: 17px;
   }
-  .information-grid {
-    gap: 24px;
-    grid-template-columns: 1.65fr 1fr;
-  }
-  .transport-card > summary {
-    grid-template-columns: 40px 1fr 1.5fr 70px 15px;
-    gap: 10px;
-    padding: 12px 9px;
-  }
-  .transport-icon {
-    width: 38px;
-    height: 38px;
-  }
-  .transport-icon .icon {
-    width: 24px;
-    height: 24px;
-  }
-  .transport-card h3 {
-    font-size: 16px;
-  }
-  .transport-description {
-    font-size: 13px;
-  }
-  .transport-duration {
-    font-size: 13px;
-  }
-  .practical-list dt {
-    gap: 10px;
-  }
-  .destination-grid {
-    gap: 9px;
-  }
-  .destination-copy {
-    padding: 8px;
-  }
-  .destination-copy p {
-    font-size: 13px;
-  }
-  .destination-image {
-    height: 95px;
-  }
+
   .talk > summary {
     grid-template-columns: 54px 2fr 1fr 1fr 65px 16px;
     gap: 8px;
@@ -1202,28 +1246,7 @@ summary::-webkit-details-marker {
   .about-copy p {
     font-size: 16px;
   }
-  .information-grid {
-    grid-template-columns: 1fr;
-  }
-  .practical-column {
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-  }
-  .transport-card > summary {
-    grid-template-columns: 48px 1fr 2fr 90px 20px;
-  }
-  .transport-card h3 {
-    font-size: 18px;
-  }
-  .transport-description {
-    font-size: 16px;
-  }
-  .destination-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .destination-image {
-    height: 125px;
-  }
+
   .talk-affiliation {
     display: none;
   }
@@ -1651,136 +1674,12 @@ summary::-webkit-details-marker {
     color: var(--color-text-muted);
     margin-top: 9px;
   }
-  .information-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  .information-content {
-    padding-bottom: 34px;
-  }
+
   .section-title {
     font-size: 12px;
     letter-spacing: 3.8px;
   }
-  .campus-intro {
-    display: none;
-  }
-  .transport-list {
-    gap: 7px;
-  }
-  .transport-card > summary {
-    grid-template-columns:
-      34px minmax(68px, 0.9fr) minmax(90px, 1.15fr)
-      60px 12px;
-    gap: 7px;
-    padding: 10px 6px;
-  }
-  .transport-icon {
-    width: 33px;
-    height: 33px;
-  }
-  .transport-icon .icon {
-    width: 23px;
-    height: 23px;
-  }
-  .transport-card h3 {
-    font-size: 13px;
-    line-height: 1.13;
-  }
-  .transport-description {
-    font-size: 11px;
-    line-height: 1.17;
-  }
-  .transport-description small {
-    display: none;
-  }
-  .transport-duration {
-    font-size: 11px;
-  }
-  .transport-arrow {
-    width: 13px;
-  }
-  .transport-expanded {
-    padding: 3px 14px 14px;
-    font-size: 14px;
-  }
-  .practical-column {
-    gap: 21px;
-  }
-  .location-map {
-    height: 240px;
-  }
-  .location-caption {
-    padding: 11px 13px;
-  }
-  .location-caption p {
-    font-size: 16px;
-  }
-  .location-caption .eyebrow {
-    font-size: 10px;
-  }
-  .map-link {
-    font-size: 14px;
-  }
-  .practical-list > div {
-    font-size: 14px;
-    grid-template-columns: 38% 1fr;
-    gap: 10px;
-    padding: 7px 5px;
-  }
-  .practical-list dt {
-    gap: 12px;
-  }
-  .practical-list .icon {
-    width: 18px;
-    height: 18px;
-  }
-  .around-section {
-    margin-top: 23px;
-  }
-  .around-section > p {
-    font-size: 14px;
-    line-height: 1.25;
-    margin-bottom: 10px;
-  }
-  .destination-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 9px;
-  }
-  .destination-card {
-    display: grid;
-    grid-template-columns: 38% 1fr;
-    min-height: 95px;
-  }
-  .destination-image {
-    height: 100%;
-    min-height: 95px;
-  }
-  .destination-copy {
-    padding: 8px 5px;
-  }
-  .destination-copy h3 {
-    font-size: 12px;
-    line-height: 1.15;
-    display: block;
-    position: relative;
-    padding-right: 9px;
-  }
-  .destination-copy h3 .icon {
-    position: absolute;
-    right: -4px;
-    top: 1px;
-    width: 12px;
-  }
-  .destination-copy p {
-    font-size: 11px;
-    line-height: 1.2;
-    margin-top: 5px;
-  }
-  .visitor-updates {
-    font-size: 14px;
-  }
+
   .modal-inner {
     padding: 30px 24px;
   }
@@ -1821,23 +1720,7 @@ summary::-webkit-details-marker {
   .hero-date span {
     font-size: 20px;
   }
-  .transport-card > summary {
-    grid-template-columns: 28px minmax(60px, 0.9fr) 1fr 52px 10px;
-    gap: 5px;
-  }
-  .transport-icon {
-    width: 27px;
-    height: 27px;
-  }
-  .transport-card h3 {
-    font-size: 12px;
-  }
-  .transport-description {
-    font-size: 10px;
-  }
-  .transport-duration {
-    font-size: 10px;
-  }
+
   .program-day > summary {
     gap: 8px;
   }
@@ -1856,22 +1739,7 @@ summary::-webkit-details-marker {
   .person p {
     font-size: 18px;
   }
-  .destination-card {
-    grid-template-columns: 1fr;
-  }
-  .destination-image {
-    height: 85px;
-    min-height: 0;
-  }
-  .destination-copy {
-    padding: 8px;
-  }
-  .destination-copy h3 {
-    font-size: 14px;
-  }
-  .destination-copy p {
-    font-size: 13px;
-  }
+
   .footer-inner nav {
     gap: 15px;
   }
@@ -1884,9 +1752,6 @@ summary::-webkit-details-marker {
   *::before,
   *::after {
     transition: none !important;
-  }
-  .destination-card:hover {
-    transform: none;
   }
 }
 @media print {
@@ -1930,58 +1795,8 @@ summary::-webkit-details-marker {
     padding-bottom: 0;
   }
   .talk,
-  .transport-card,
   .person {
     break-inside: avoid;
-  }
-}
-@media (max-width: 450px) {
-  .transport-card > summary {
-    grid-template-columns: 35px minmax(0, 1fr) 75px 16px;
-    gap: 9px;
-    padding: 12px 9px;
-  }
-  .transport-icon {
-    grid-row: 1 / 3;
-  }
-  .transport-card h3 {
-    font-size: 16px;
-    grid-column: 2;
-    grid-row: 1;
-  }
-  .transport-duration {
-    grid-column: 3;
-    grid-row: 1;
-    font-size: 13px;
-  }
-  .transport-arrow {
-    grid-column: 4;
-    grid-row: 1;
-  }
-  .transport-description {
-    grid-column: 2 / -1;
-    grid-row: 2;
-    font-size: 14px;
-    line-height: 1.2;
-  }
-  .destination-card {
-    grid-template-columns: 1fr;
-    min-height: 0;
-  }
-  .destination-image {
-    height: 100px;
-    min-height: 0;
-  }
-  .destination-copy {
-    padding: 9px;
-  }
-  .destination-copy h3 {
-    font-size: 15px;
-    padding-right: 14px;
-  }
-  .destination-copy p {
-    font-size: 14px;
-    line-height: 1.22;
   }
 }
 

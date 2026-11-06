@@ -3,76 +3,57 @@ import Icon from "../components/Icon";
 import AtlasImage from "../components/AtlasImage";
 import LocationMap from "../components/LocationMap";
 import {
-  campusIntro,
-  transport,
+  campusDocuments,
   practicalDetails,
   destinations,
   destinationArtwork,
-  visitorUpdates,
 } from "../data/information";
 export default function Information() {
   return (
     <>
       <PageHeading page="information" />
-      <div className="information-content wide">
+      <div className="information-content narrow">
         <div className="information-grid">
           <section className="getting-here" aria-labelledby="campus-title">
             <h2 className="eyebrow section-title" id="campus-title">
               Getting to campus
             </h2>
-            <p className="campus-intro">{campusIntro}</p>
-            <div className="transport-list">
-              {transport.map((item) => (
-                <details className="transport-card" key={item.title}>
-                  <summary>
-                    <span className="transport-icon">
-                      <Icon name={item.icon} />
+            <ul className="campus-documents">
+              {campusDocuments.map((document) => (
+                <li key={document.href}>
+                  <a href={document.href}>
+                    <Icon name="document" />
+                    <span>
+                      {document.title} <small>(PDF)</small>
                     </span>
-                    <h3>{item.title}</h3>
-                    <span className="transport-description">
-                      {item.description}
-                      <small>{item.note}</small>
-                    </span>
-                    <span className="transport-duration">{item.duration}</span>
-                    <Icon className="transport-arrow" />
-                  </summary>
-                  <div className="transport-expanded">
-                    <p>{item.details}</p>
-                    {item.routeUrl && (
-                      <a
-                        className="transport-route-link"
-                        href={item.routeUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label={`View Google Maps transit route ${item.title.toLowerCase()} to HKUST`}
-                      >
-                        View route on Google Maps <Icon />
-                      </a>
-                    )}
-                  </div>
-                </details>
+                    <Icon />
+                  </a>
+                </li>
               ))}
-            </div>
+            </ul>
           </section>
-          <aside className="practical-column">
+          <div className="campus-location">
             <LocationMap />
-            <section aria-labelledby="practical-title">
-              <h2 className="eyebrow section-title" id="practical-title">
-                Practical details
-              </h2>
-              <dl className="practical-list">
-                {practicalDetails.map((detail) => (
-                  <div key={detail.label}>
-                    <dt>
-                      <Icon name={detail.icon} />
-                      <span>{detail.label}</span>
-                    </dt>
-                    <dd>{detail.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </section>
-          </aside>
+          </div>
+          <section
+            className="practical-details"
+            aria-labelledby="practical-title"
+          >
+            <h2 className="eyebrow section-title" id="practical-title">
+              Practical details
+            </h2>
+            <dl className="practical-list">
+              {practicalDetails.map((detail) => (
+                <div key={detail.label}>
+                  <dt>
+                    <Icon name={detail.icon} />
+                    <span>{detail.label}</span>
+                  </dt>
+                  <dd>{detail.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
         </div>
         <section className="around-section" aria-labelledby="around-title">
           <h2 className="eyebrow section-title" id="around-title">
@@ -108,12 +89,6 @@ export default function Information() {
             ))}
           </div>
         </section>
-        <details className="visitor-updates">
-          <summary>
-            {visitorUpdates.title} <Icon name="chevron" />
-          </summary>
-          <p>{visitorUpdates.description}</p>
-        </details>
       </div>
     </>
   );

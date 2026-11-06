@@ -21,7 +21,7 @@ Layout and content are kept separate. Most updates require changes only to these
 | `src/data/speakers.js`    | Invited speakers and affiliations shown on the Speakers page       |
 | `src/data/about.js`       | About copy and scientific/organizing committee members             |
 | `src/data/program.js`     | Publication notice and commented draft schedule and abstracts      |
-| `src/data/information.js` | Transport, practical details, Hong Kong destinations               |
+| `src/data/information.js` | Campus PDFs, practical details, Hong Kong destinations             |
 | `src/theme.css`           | Site-wide color, typography, spacing, and responsive design tokens |
 | `src/styles.css`          | Shared components and page-specific content layouts                |
 | `public/images/`          | Local, optimized artwork and its generation prompts                |
@@ -76,7 +76,7 @@ npx playwright install chromium
 npm test
 ```
 
-The tests cover all five routes at desktop, tablet, and phone sizes, missing resources, horizontal overflow, mobile navigation and keyboard-operated day tabs, expandable abstracts, transport details, and dialog focus restoration.
+The tests cover all five routes at desktop, tablet, and phone sizes, missing resources, horizontal overflow, mobile navigation and keyboard-operated day tabs, expandable abstracts, campus PDF links, and dialog focus restoration.
 
 ## Artwork
 

@@ -7,6 +7,7 @@ export const conference = {
   address: "Clear Water Bay, Kowloon, Hong Kong SAR",
   introduction:
     "A conference on recent developments and future directions in enumerative geometry, bringing together researchers from around the world, with a special focus on East Asia.",
+  registrationUrl: "https://forms.cloud.microsoft/r/iBDqmn98yX",
   about:
     "Enumerative Geometry in East Asia 2026 (EGEA 2026) will be held at the Hong Kong University of Science and Technology from December 7 to 11, 2026. The conference aims to bring together researchers working on enumerative problems in algebraic geometry and related areas, fostering exchange and collaboration, with a particular focus on the East Asian mathematical community.",
   scope:

@@ -217,48 +217,22 @@ test("mobile day tabs support keyboard navigation and the full week view", async
   ).toBe(true);
 });
 
-test("travel details expand and map links point to the intended destination", async ({
+test("campus PDFs are available and map links point to the intended destination", async ({
   page,
+  request,
 }) => {
   await page.goto("/information.html");
-  const routes = [
-    ["From the airport", "Hong Kong International Airport, Hong Kong", "A29"],
-    [
-      "From Hang Hau MTR",
-      "Hang Hau, Tseung Kwan O, New Territories, Hong Kong",
-      "11M",
-    ],
-    ["From Tseung Kwan O MTR", "Tseung Kwan O MTR Station, Hong Kong", "792M"],
-  ];
-  for (const [title, origin, service] of routes) {
-    const card = page.locator(".transport-card").filter({
-      has: page.getByRole("heading", { name: title, exact: true }),
-    });
-    await expect(card).toContainText(service);
-    if (title === "From the airport") {
-      await expect(card).toContainText("91M");
-      await expect(card).toContainText("11M");
-    }
-    await card.locator("summary").click();
-    const href = await card
-      .getByRole("link", { name: /View Google Maps transit route/ })
-      .getAttribute("href");
-    const url = new URL(href);
-    expect(url.origin + url.pathname).toBe("https://www.google.com/maps/dir/");
-    expect(url.searchParams.get("origin")).toBe(origin);
-    expect(url.searchParams.get("destination")).toContain(
-      "Hong Kong University of Science and Technology",
-    );
-    expect(url.searchParams.get("travelmode")).toBe("transit");
+  const campus = page.getByRole("region", { name: "Getting to campus" });
+  await expect(campus.getByRole("link")).toHaveCount(2);
+  for (const title of ["Directions to HKUST", "Arrival Information"]) {
+    const link = campus.getByRole("link", { name: `${title} (PDF)` });
+    await expect(link).toBeVisible();
+    const href = await link.getAttribute("href");
+    const response = await request.get(new URL(href, page.url()).href);
+    expect(response.ok()).toBe(true);
+    expect(response.headers()["content-type"]).toContain("application/pdf");
+    expect((await response.body()).subarray(0, 5).toString()).toBe("%PDF-");
   }
-  const taxi = page.locator(".transport-card").filter({
-    has: page.getByRole("heading", { name: "Taxi or Uber", exact: true }),
-  });
-  await taxi.locator("summary").click();
-  await expect(taxi).toContainText("香港科技大學");
-  await expect(taxi).toContainText("HKD cash");
-  await expect(taxi).toContainText("Uber");
-  await expect(taxi.locator(".transport-expanded")).toBeVisible();
   const campusMap = page.locator(
     'iframe[title="Interactive map of HKUST in Clear Water Bay, Hong Kong"]',
   );
