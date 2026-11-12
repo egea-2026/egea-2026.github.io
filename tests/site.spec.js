@@ -197,8 +197,8 @@ test("timetable follows the spreadsheet, including the free afternoon and dinner
   await expect(page.locator("#program-tuesday .program-event")).toHaveText(
     "Time TBAConference Dinner",
   );
-  await expect(page.locator("#program-wednesday .program-event")).toHaveText(
-    "14:30 – 17:00Free afternoon",
+  await expect(page.locator(".detailed-program")).not.toContainText(
+    "Free afternoon",
   );
   for (const [index, day] of [
     "monday",

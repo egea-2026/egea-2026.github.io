@@ -322,6 +322,7 @@ export default function Program() {
                 {day.events.map(
                   (event, i) =>
                     event &&
+                    event.label !== "Free afternoon" &&
                     (speakerFor(event) ? (
                       <Talk key={i} event={event} day={day} index={i} />
                     ) : (
