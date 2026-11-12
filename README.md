@@ -18,26 +18,26 @@ Layout and content are kept separate. Most updates require changes only to these
 | File                      | Content                                                            |
 | ------------------------- | ------------------------------------------------------------------ |
 | `src/data/conference.js`  | Dates, venue, introductory copy, navigation, footer dialogs        |
-| `src/data/speakers.js`    | Invited speakers and affiliations shown on the Speakers page       |
+| `src/data/speakers.js`    | Invited speakers, affiliations, and submitted titles and abstracts |
 | `src/data/about.js`       | About copy and scientific/organizing committee members             |
-| `src/data/program.js`     | Publication notice and commented draft schedule and abstracts      |
+| `src/data/program.js`     | Timetable, speaker assignments, and related events                 |
 | `src/data/information.js` | Campus PDFs, practical details, Hong Kong destinations             |
 | `src/theme.css`           | Site-wide color, typography, spacing, and responsive design tokens |
 | `src/styles.css`          | Shared components and page-specific content layouts                |
 | `public/images/`          | Local, optimized artwork and its generation prompts                |
 
-The Program page currently displays “To be announced.” The draft schedule, titles, and abstracts remain commented out in `src/data/program.js`. To publish the confirmed program, remove its temporary empty `timeSlots` and `days` exports, uncomment and update the draft definitions, then re-enable the skipped schedule and MathJax tests in `tests/site.spec.js`. The existing Program layout reappears automatically when `days` contains entries.
+The Program page uses the timetable from `talks/Talk_Schedule(EGEA26).xlsx`, stored in `src/data/program.js`. It includes 18 talks from December 7–11, the Tuesday conference dinner, and a free Wednesday afternoon. The dinner time is marked TBA because the spreadsheet does not specify it. Submitted titles and abstracts are stored in `src/data/speakers.js` as `String.raw` templates. Qizheng Yin's title and abstract are TBA; his affiliation is unset.
 
-Each program day has one event per entry in `timeSlots`; use `null` for an empty time slot. An event with an `abstract` automatically gets an expandable detailed entry and a clickable schedule cell. Set `speaker` to an ID from the invited roster in `src/data/speakers.js` to reuse that person’s name and affiliation throughout the timetable. The Program imports that roster through `speakerById` in `src/data/program.js`. In the preserved draft, mockup talk slots have `presenter: "To be announced"` until their assignments are confirmed; no provisional speaker names are published. All days start expanded and all talk details start collapsed. The “Expand all days” and “Collapse all days” controls change day visibility while preserving individually opened talks. Selecting a timetable entry opens its day and abstract.
+Each program day has one event per entry in `timeSlots`; use `null` for an empty time slot. Set an event's `speaker` to an ID from `src/data/speakers.js` to reuse that person's name, affiliation, title, and abstract throughout the timetable. For example, `{ speaker: "chenjing-bu" }` schedules Chenjing Bu's submitted talk. Non-talk events use a `label`; `rowSpan: 2` spans two timetable rows, with `null` in the covered slot. The mobile view combines that span into one entry and omits empty slots. Add an optional `room` only when a venue has been supplied. The Program imports the roster through `speakerById` in `src/data/speakers.js`. All days start expanded and all talk details start collapsed. The “Expand all days” and “Collapse all days” controls change day visibility while preserving individually opened talks. Selecting a timetable entry opens its day and abstract.
 
-Abstracts support inline TeX with `\(...\)` or `$...$`, and display equations with `\[...\]` or `$$...$$`. Use a JavaScript `String.raw` template in `src/data/program.js` to preserve TeX backslashes:
+Abstracts support inline TeX with `\(...\)` or `$...$`, and display equations with `\[...\]` or `$$...$$`. Use JavaScript `String.raw` templates for titles and abstracts in `src/data/speakers.js` to preserve the submitted TeX:
 
 ```js
 abstract: String.raw`For \(X = \mathbb{P}^2\), consider the series
   \[ F(q) = \sum_{d \geq 0} N_d q^d. \]`,
 ```
 
-When abstracts are published, MathJax 4 uses the STIX2 math font and loads only on the Program page. `MathText` handles both abstract details and timetable previews, including mobile day changes. The runtime and font files are served locally; `predev` and `prebuild` generate `public/vendor/mathjax/` from the pinned npm dependencies. This generated folder is ignored by Git and included in `dist/` automatically. The commented first Monday plenary abstract contains sample inline and display mathematics.
+MathJax 4 uses the STIX2 math font and loads when the Program page renders its abstracts. `MathText` handles both abstract details and timetable previews, including mobile day changes. The runtime and font files are served locally; `predev` and `prebuild` generate `public/vendor/mathjax/` from the pinned npm dependencies. This generated folder is ignored by Git and included in `dist/` automatically.
 
 The Speakers page sorts names by their final word (last name) before displaying them. The list reads down the first column and then the second on desktop, and keeps the same order on mobile. Edit `src/data/speakers.js` to update names and affiliations; its entry order does not control the displayed order. The desktop columns rebalance automatically when speakers are added or removed.
 

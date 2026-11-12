@@ -1,15 +1,19 @@
 import { useRef, useState } from "react";
 import { PageHeading } from "../components/Layout";
-import {
-  days,
-  programAnnouncement,
-  speakerById,
-  timeSlots,
-} from "../data/program";
+import { days, timeSlots } from "../data/program";
+import { speakerById } from "../data/speakers";
 import Icon from "../components/Icon";
 import MathText from "../components/MathText";
 const speakerFor = (event) => speakerById[event?.speaker];
 const talkId = (day, index) => `${day.id}-talk-${index}`;
+const isCovered = (day, index) =>
+  day.events
+    .slice(0, index)
+    .some((event, start) => start + (event?.rowSpan || 1) > index);
+const eventTime = (event, index) =>
+  event?.rowSpan
+    ? `${timeSlots[index].split(" – ")[0]} – ${timeSlots[index + event.rowSpan - 1].split(" – ")[1]}`
+    : timeSlots[index];
 
 function highlightTalk(target, reducedMotion) {
   // Restart the feedback even when the same talk is selected again.
@@ -47,18 +51,15 @@ function ScheduleEvent({ event, day, index }) {
       </span>
     );
   const speaker = speakerFor(event);
+  const title = speaker?.title || "Title to be announced";
   const content = (
     <>
-      <span>{event.label}</span>
-      {(speaker || event.presenter) && (
-        <span className="schedule-speaker">
-          {speaker?.name || event.presenter}
-        </span>
-      )}
-      <span className="schedule-room">({event.room})</span>
+      <span>{speaker?.name || event.label}</span>
+      {event.room && <span className="schedule-room">({event.room})</span>}
     </>
   );
-  if (!event.abstract) return <div className="schedule-event">{content}</div>;
+  if (!speaker?.abstract)
+    return <div className="schedule-event">{content}</div>;
   const reveal = () => {
     const target = document.getElementById(talkId(day, index));
     if (target) {
@@ -82,7 +83,7 @@ function ScheduleEvent({ event, day, index }) {
         type="button"
         onClick={reveal}
         aria-controls={talkId(day, index)}
-        aria-label={`${event.title}, ${day.name}, ${timeSlots[index]}. View abstract`}
+        aria-label={`${title}, ${speaker.name}, ${day.name}, ${timeSlots[index]}. View abstract`}
       >
         {content}
         <Icon className="mobile-event-arrow" />
@@ -91,17 +92,16 @@ function ScheduleEvent({ event, day, index }) {
         className="event-preview"
         type="button"
         onClick={reveal}
-        aria-label={`Read abstract: ${event.title}`}
+        aria-label={`Read abstract: ${title}, ${speaker.name}`}
         aria-controls={talkId(day, index)}
       >
-        <strong>{event.title}</strong>
-        {speaker && (
-          <span>
-            {speaker.name} ({speaker.affiliation})
-          </span>
-        )}
+        <strong>{title}</strong>
+        <span>
+          {speaker.name}
+          {speaker.affiliation && ` (${speaker.affiliation})`}
+        </span>
         <span className="preview-abstract">
-          <MathText>{event.abstract}</MathText>
+          <MathText>{speaker.abstract}</MathText>
         </span>
         <span className="preview-hint">
           Read abstract <Icon />
@@ -116,25 +116,33 @@ function Talk({ event, day, index }) {
     <details className="talk" id={talkId(day, index)}>
       <summary>
         <time>{timeSlots[index].slice(0, 5)}</time>
-        <span className="talk-title">{event.title}</span>
-        <span className="talk-speaker">{speaker?.name || event.presenter}</span>
-        <span className="talk-affiliation">{speaker?.affiliation}</span>
-        <span className="talk-room">{event.room}</span>
+        <span className="talk-title">
+          {speaker.title || "Title to be announced"}
+        </span>
+        <span className="talk-speaker">{speaker.name}</span>
+        <span className="talk-affiliation">{speaker.affiliation}</span>
         <span className="expand-mark" aria-hidden="true" />
       </summary>
       <div className="talk-body">
         <p className="mobile-presenter">
-          {speaker
-            ? `${speaker.name} (${speaker.affiliation})`
-            : event.presenter}
+          {speaker.name}
+          {speaker.affiliation && ` (${speaker.affiliation})`}
         </p>
         <p>
           <span className="abstract-label">Abstract: </span>
-          <MathText>{event.abstract}</MathText>
+          <MathText>{speaker.abstract}</MathText>
         </p>
-        <p className="mobile-room">Venue: {event.room}</p>
+        {event.room && <p className="mobile-room">Venue: {event.room}</p>}
       </div>
     </details>
+  );
+}
+function ProgramEvent({ event, index }) {
+  return (
+    <div className="program-event">
+      <span>{eventTime(event, index)}</span>
+      <span>{event.label}</span>
+    </div>
   );
 }
 export default function Program() {
@@ -164,7 +172,7 @@ export default function Program() {
       <>
         <PageHeading page="program" />
         <div className="program-content wide">
-          <p className="program-announcement">{programAnnouncement}</p>
+          <p className="program-announcement">To be announced.</p>
         </div>
       </>
     );
@@ -209,15 +217,18 @@ export default function Program() {
                 {timeSlots.map((slot, index) => (
                   <tr key={slot}>
                     <th scope="row">{slot}</th>
-                    {days.map((day) => (
-                      <td key={day.id}>
-                        <ScheduleEvent
-                          event={day.events[index]}
-                          day={day}
-                          index={index}
-                        />
-                      </td>
-                    ))}
+                    {days.map((day) => {
+                      const event = day.events[index];
+                      return isCovered(day, index) ? null : (
+                        <td key={day.id} rowSpan={event?.rowSpan}>
+                          <ScheduleEvent
+                            event={event}
+                            day={day}
+                            index={index}
+                          />
+                        </td>
+                      );
+                    })}
                   </tr>
                 ))}
               </tbody>
@@ -251,16 +262,17 @@ export default function Program() {
               aria-labelledby={`tab-${selected.id}`}
               tabIndex="0"
             >
-              {timeSlots.map((slot, index) => (
-                <div className="mobile-slot" key={slot}>
-                  <time>{slot}</time>
-                  <ScheduleEvent
-                    event={selected.events[index]}
-                    day={selected}
-                    index={index}
-                  />
-                </div>
-              ))}
+              {timeSlots.map((slot, index) => {
+                const event = selected.events[index];
+                return !event || isCovered(selected, index) ? null : (
+                  <div className="mobile-slot" key={slot}>
+                    <span className="mobile-slot-time">
+                      {eventTime(event, index)}
+                    </span>
+                    <ScheduleEvent event={event} day={selected} index={index} />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -309,9 +321,12 @@ export default function Program() {
               <div className="day-talks">
                 {day.events.map(
                   (event, i) =>
-                    event?.abstract && (
+                    event &&
+                    (speakerFor(event) ? (
                       <Talk key={i} event={event} day={day} index={i} />
-                    ),
+                    ) : (
+                      <ProgramEvent key={i} event={event} index={i} />
+                    )),
                 )}
               </div>
             </details>

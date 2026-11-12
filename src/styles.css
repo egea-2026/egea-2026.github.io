@@ -721,14 +721,25 @@ summary::-webkit-details-marker {
   border-radius: 4px;
   background: var(--color-surface-subtle);
 }
-.talk + .talk {
+.day-talks > * + * {
   border-top: 1px solid var(--color-border);
+}
+.program-event {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 12px;
+  padding: 12px 15px;
+  font-size: 16px;
+}
+.program-event > span:first-child {
+  font-size: 14px;
+  color: var(--color-text-muted);
 }
 .talk > summary {
   display: grid;
   grid-template-columns:
-    72px minmax(180px, 2.1fr) minmax(100px, 0.9fr) minmax(100px, 0.9fr)
-    80px 22px;
+    60px minmax(180px, 2.1fr) minmax(100px, 0.9fr) minmax(100px, 1.2fr)
+    22px;
   gap: 12px;
   align-items: baseline;
   padding: 9px 15px;
@@ -739,12 +750,8 @@ summary::-webkit-details-marker {
 }
 .talk time,
 .talk-speaker,
-.talk-affiliation,
-.talk-room {
+.talk-affiliation {
   font-size: 14px;
-}
-.talk-room {
-  text-align: right;
 }
 .talk-affiliation {
   font-size: 13px;
@@ -773,10 +780,13 @@ summary::-webkit-details-marker {
   transform: rotate(0);
 }
 .talk-body {
-  padding: 0 60px 14px 99px;
+  padding: 0 60px 14px 87px;
   font-size: 15px;
   line-height: 1.45;
   color: var(--color-text-muted);
+}
+.talk-body .math-content {
+  white-space: pre-line;
 }
 .mobile-presenter,
 .mobile-room {
@@ -1568,7 +1578,7 @@ summary::-webkit-details-marker {
   .mobile-slot:last-child {
     border-bottom: 0;
   }
-  .mobile-slot > time {
+  .mobile-slot-time {
     font-size: 14px;
     white-space: nowrap;
     align-self: start;
@@ -1650,9 +1660,13 @@ summary::-webkit-details-marker {
     line-height: 1.3;
   }
   .talk-affiliation,
-  .talk-speaker,
-  .talk-room {
+  .talk-speaker {
     display: none;
+  }
+  .program-event {
+    grid-template-columns: 102px 1fr;
+    gap: 10px;
+    padding: 10px;
   }
   .talk-body {
     padding: 0 17px 14px 68px;

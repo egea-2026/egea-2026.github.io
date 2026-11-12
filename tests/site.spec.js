@@ -97,12 +97,8 @@ test("navigation keeps the document, fonts, and header while updating each page"
       ),
     ).toBe(true);
     if (name === "Program") {
-      await expect(page.locator(".program-announcement")).toHaveText(
-        "To be announced.",
-      );
-      await expect(page.locator(".week-table, .detailed-program")).toHaveCount(
-        0,
-      );
+      await expect(page.locator(".program-day")).toHaveCount(5);
+      await expect(page.locator(".talk")).toHaveCount(18);
     }
     await page.evaluate(() => document.fonts.ready);
     if (isMobile)
@@ -152,12 +148,79 @@ test("about links reach the committees and footer dialogs restore focus", async 
   await page.getByRole("button", { name: "Close dialog" }).click();
 });
 
-// Keep these checks ready for when the commented draft program is published.
+test("timetable follows the spreadsheet, including the free afternoon and dinner", async ({
+  page,
+}) => {
+  await page.goto("/program.html");
+  const rows = page.locator(".week-table tbody tr");
+  const expectedRows = [
+    [
+      "Qizheng Yin",
+      "Zhengyu Zong",
+      "Junliang Shen",
+      "Chenjing Bu",
+      "Chunyi Li",
+    ],
+    [
+      "Adeel Khan",
+      "Lucien Hennecart",
+      "Alexandre Minets",
+      "Christopher Brav",
+      "Tasuki Kinjo",
+    ],
+    [
+      "Tudor Padurariu",
+      "Hyeonjun Park",
+      "Free afternoon",
+      "Andres Ibanez Nunez",
+      "Woonam Lim",
+    ],
+    ["Yang Zhou", "Junwu Tu", "Yukinobu Toda", "Francesco Sala"],
+    ["Conference Dinner"],
+  ];
+  await expect(rows).toHaveCount(5);
+  await expect(rows.locator("th")).toHaveText([
+    "10:00 – 11:00",
+    "11:20 – 12:20",
+    "14:30 – 15:30",
+    "16:00 – 17:00",
+    "Time TBA",
+  ]);
+  for (const [index, names] of expectedRows.entries()) {
+    await expect(
+      rows.nth(index).locator(".schedule-event > span:first-child"),
+    ).toHaveText(names);
+  }
+  await expect(page.locator('.week-table td[rowspan="2"]')).toHaveText(
+    "Free afternoon",
+  );
+  await expect(page.locator("#program-tuesday .program-event")).toHaveText(
+    "Time TBAConference Dinner",
+  );
+  await expect(page.locator("#program-wednesday .program-event")).toHaveText(
+    "14:30 – 17:00Free afternoon",
+  );
+  for (const [index, day] of [
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+  ].entries()) {
+    await expect(page.locator(`#program-${day} .talk`)).toHaveCount(
+      [4, 4, 2, 4, 4][index],
+    );
+  }
+  await expect(page.locator("#monday-talk-0 .talk-title")).toHaveText("TBA");
+  await page.locator("#monday-talk-0 > summary").click();
+  await expect(page.locator("#monday-talk-0 .math-content")).toHaveText("TBA");
+  await expect(page.locator(".schedule-room, .mobile-room")).toHaveCount(0);
+});
+
 test("schedule opens the correct talk and its containing day", async ({
   page,
   isMobile,
 }) => {
-  test.skip(true, "Program schedule is not yet published");
   await page.goto("/program.html");
   await expect(page.locator(".program-day[open]")).toHaveCount(5);
   await expect(page.locator(".talk[open]")).toHaveCount(0);
@@ -171,32 +234,35 @@ test("schedule opens the correct talk and its containing day", async ({
   await page.getByRole("button", { name: "Collapse all days" }).click();
   if (isMobile) {
     await page.getByRole("tab", { name: "Wed Dec 9" }).click();
-    await expect(page.getByRole("tabpanel")).toContainText("To be announced");
+    await expect(page.getByRole("tabpanel")).toContainText("Alexandre Minets");
     await page
       .getByRole("tabpanel")
-      .getByRole("button", { name: /Derived curves/ })
+      .getByRole("button", {
+        name: /Equivariant multiplicities.*View abstract/,
+      })
       .click();
   } else {
     await page
       .getByRole("table")
-      .getByRole("button", { name: /Derived curves/ })
+      .getByRole("button", {
+        name: /Equivariant multiplicities.*View abstract/,
+      })
       .click();
   }
-  await expect(page.locator("#wednesday-talk-3")).toHaveAttribute("open", "");
-  await expect(page.locator("#wednesday-talk-3 .talk-body")).toBeVisible();
+  await expect(page.locator("#wednesday-talk-1")).toHaveAttribute("open", "");
+  await expect(page.locator("#wednesday-talk-1 .talk-body")).toBeVisible();
   await page.getByRole("button", { name: "Collapse all days" }).click();
-  await expect(page.locator("#wednesday-talk-3 .talk-body")).toBeHidden();
+  await expect(page.locator("#wednesday-talk-1 .talk-body")).toBeHidden();
   await page.getByRole("button", { name: "Expand all days" }).click();
-  await expect(page.locator("#wednesday-talk-3 .talk-body")).toBeVisible();
-  await page.locator("#wednesday-talk-3 > summary").click();
-  await expect(page.locator("#wednesday-talk-3 .talk-body")).toBeHidden();
+  await expect(page.locator("#wednesday-talk-1 .talk-body")).toBeVisible();
+  await page.locator("#wednesday-talk-1 > summary").click();
+  await expect(page.locator("#wednesday-talk-1 .talk-body")).toBeHidden();
 });
 
 test("mobile day tabs support keyboard navigation and the full week view", async ({
   page,
   isMobile,
 }) => {
-  test.skip(true, "Program schedule is not yet published");
   test.skip(!isMobile, "Mobile schedule only");
   await page.goto("/program.html");
   await page.getByRole("tab", { name: "Mon Dec 7" }).focus();
@@ -205,7 +271,26 @@ test("mobile day tabs support keyboard navigation and the full week view", async
     "aria-selected",
     "true",
   );
-  await expect(page.getByRole("tabpanel")).toContainText("To be announced");
+  await expect(page.getByRole("tabpanel")).toContainText("Conference Dinner");
+  await expect(page.getByRole("tabpanel")).toContainText("Time TBA");
+  await page.keyboard.press("ArrowRight");
+  await expect(page.getByRole("tabpanel").locator(".mobile-slot")).toHaveCount(
+    3,
+  );
+  await expect(page.getByRole("tabpanel")).toContainText("14:30 – 17:00");
+  await expect(
+    page.getByRole("tabpanel").getByText("Free afternoon", { exact: true }),
+  ).toHaveCount(1);
+  await page.keyboard.press("End");
+  await expect(page.getByRole("tab", { name: "Fri Dec 11" })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+  await page.keyboard.press("Home");
+  await expect(page.getByRole("tab", { name: "Mon Dec 7" })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
   await page
     .getByRole("combobox", { name: "Schedule display" })
     .selectOption("week");
@@ -252,7 +337,6 @@ test("abstract math uses local STIX2 fonts and survives schedule interactions", 
   page,
   isMobile,
 }) => {
-  test.skip(true, "Program abstracts are not yet published");
   const failures = [];
   const fontRequests = [];
   page.on("pageerror", (error) => failures.push(error.message));
@@ -265,10 +349,12 @@ test("abstract math uses local STIX2 fonts and survives schedule interactions", 
     route.abort(),
   );
   await page.goto("/program.html");
-  const talk = page.locator("#monday-talk-3");
+  const talk = page.locator("#thursday-talk-2");
+  await expect(page.locator('.talk [data-math-ready="true"]')).toHaveCount(18);
   await expect(talk.locator('[data-math-ready="true"]')).toHaveCount(1);
-  await expect(talk.locator('mjx-container[display="true"]')).toBeHidden();
-  await expect(talk.locator("mjx-container")).toHaveCount(3);
+  await expect(talk.locator("mjx-container").first()).toBeHidden();
+  const mathCount = await talk.locator("mjx-container").count();
+  expect(mathCount).toBeGreaterThan(0);
   expect(await page.evaluate(() => MathJax.version)).toMatch(/^4\./);
   expect(await page.evaluate(() => MathJax.config.output.font)).toBe(
     "mathjax-stix2",
@@ -279,31 +365,29 @@ test("abstract math uses local STIX2 fonts and survives schedule interactions", 
   );
 
   if (isMobile) {
-    for (const name of ["Tue Dec 8", "Wed Dec 9", "Mon Dec 7"]) {
+    for (const name of ["Thu Dec 10", "Tue Dec 8", "Wed Dec 9", "Thu Dec 10"]) {
       await page.getByRole("tab", { name }).click();
     }
     // Hidden mobile previews are remounted when the selected day changes.
+    const button = page.getByRole("tabpanel").getByRole("button", {
+      name: /The stacky cohomological.*View abstract/,
+    });
     await expect(
-      page.locator("#day-schedule .math-content mjx-container"),
-    ).toHaveCount(3);
-    await page
-      .getByRole("tabpanel")
-      .getByRole("button", {
-        name: /Enumerative geometry and beyond.*View abstract/,
-      })
-      .click();
+      button.locator("..").locator(".event-preview mjx-container"),
+    ).toHaveCount(mathCount);
+    await button.click();
   } else {
     const button = page.getByRole("table").getByRole("button", {
-      name: /Enumerative geometry and beyond.*View abstract/,
+      name: /The stacky cohomological.*View abstract/,
     });
     await button.hover();
     const preview = button.locator("..").locator(".event-preview");
-    await expect(preview.locator("mjx-container")).toHaveCount(3);
+    await expect(preview.locator("mjx-container")).toHaveCount(mathCount);
     await preview.hover();
     await preview.click();
   }
   await expect(talk.locator("summary")).toBeFocused();
-  await expect(talk.locator('mjx-container[display="true"]')).toBeVisible();
+  await expect(talk.locator("mjx-container").first()).toBeVisible();
   await expect(page.locator("mjx-merror")).toHaveCount(0);
   expect(
     await page.evaluate(
