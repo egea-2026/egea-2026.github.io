@@ -130,9 +130,9 @@ This is joint work in progress with Adeel Khan, Tasuki Kinjo, and Pavel Safronov
   {
     id: "qizheng-yin",
     name: "Qizheng Yin",
-    affiliation: null,
-    title: String.raw`TBA`,
-    abstract: String.raw`TBA`,
+    affiliation: "BICMR, Peking University",
+    title: String.raw`Lagrangian fibrations and hyper-Kähler varieties: an analogy`,
+    abstract: String.raw`We discuss several questions concerning the topology and geometry of Lagrangian fibrations and hyper-Kähler varieties, and draw an analogy between the relative (fibration) and absolute (variety) settings. We also explain how this analogy serves as a guiding principle for solving some of these questions. Based on series of joint work with Younghan Bae, Davesh Maulik, Junliang Shen, and Ruxuan Zhang.`,
   },
 ];
 
