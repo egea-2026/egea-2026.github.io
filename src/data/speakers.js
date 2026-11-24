@@ -96,8 +96,8 @@ This is joint work in progress with Adeel Khan, Tasuki Kinjo, and Pavel Safronov
     id: "yang-zhou",
     name: "Yang Zhou",
     affiliation: "Shanghai Center for Mathematical Sciences, Fudan University",
-    title: String.raw`Quasimap wall-crossing and crepant resolution conjecture`,
-    abstract: String.raw`Let $X$ be a smooth proper Calabi–Yau three orbifold with projective coarse moduli space and $\widetilde{X}$ be a crepant resolution of its coarse moduli. The (genus $0$) crepant resolution conjecture predicts that the orbifold Gromov–Witten invariants of $X$ and $\widetilde{X}$ are related by certain analytic continuation and linear transformation. When $X$ is a complete intersection in toric Deligne–Mumford stack, a large part of the genus $0$ Gromov–Witten invariants can be computed using quasimap wall-crossing, even when the quantum Lefschetz fails. In this talk I will explain how this can be used to prove the crepant resolution conjecture in some cases. This is based on the joint work with Janda and Sultani, and also based on some recent computation by Jiang, Knapp, Scheidegger and myself.`,
+    title: String.raw`A-model Yukawa couplings via quasimap wall-crossing`,
+    abstract: String.raw`Morrison–Plesser moduli spaces provide a simple way of naively counting curves. Their intersection numbers give an $A$-model description of Yukawa couplings for Calabi–Yau threefold complete intersections in smooth projective toric varieties. In this talk, I will explain this description using quasimap wall-crossing, which relates the corresponding generating series to genus-zero Gromov–Witten three-point functions. The wall-crossing formula turns out to be exactly the change of coordinates and normalization predicted by mirror symmetry. Applications include rationality of the A-model Yukawa couplings in algebraic coordinates and polynomiality results for inverse Yukawa matrices. This is a joint work with Shijie Dai and Shuai Guo.`,
   },
   {
     id: "woonam-lim",
