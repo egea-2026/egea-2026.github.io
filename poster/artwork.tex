@@ -1,0 +1,8 @@
+% Decorative image layer only. No conference text is baked into the image.
+% Website artwork, converted losslessly from public/images/landscape.webp.
+% Aspect ratio is preserved. A paper-colored fade joins it to the plain field.
+\node[anchor=north west,inner sep=0pt] at (0,0)
+  {\includegraphics[width=297mm]{assets/landscape.png}};
+\fill[Paper,path fading=east] (0,118) rectangle (196,182);
+\fill[Paper,path fading=north] (0,179) rectangle (297,198.1);
+\fill[Paper] (0,198) rectangle (297,420);

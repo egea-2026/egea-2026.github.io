@@ -521,6 +521,11 @@ summary::-webkit-details-marker {
   color: var(--color-text);
   padding-bottom: 60px;
 }
+.program-venue {
+  margin-bottom: 24px;
+  font-size: 20px;
+  line-height: 1.4;
+}
 .program-announcement {
   min-height: 180px;
   padding-top: 18px;

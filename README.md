@@ -81,3 +81,7 @@ The tests cover all five routes at desktop, tablet, and phone sizes, missing res
 ## Artwork
 
 The ink-wash campus and landscape paintings and six-scene Hong Kong atlas were generated with the built-in image generation tool, then converted to WebP. Exact prompts are recorded in `public/images/prompts.json`. The site uses `campus.webp`, `landscape.webp`, `landscape-mobile.webp`, and `hong-kong.webp`; the atlas is displayed using `AtlasImage`, which uses SVG viewports and proportional cropping to keep each scene undistorted. Decorative backgrounds use `cover` or an automatic dimension to preserve their source aspect ratios. The campus illustration is an artistic interpretation. The Information page embeds the same live HKUST map used on the university’s contact page, and its map link opens the campus destination in a full map.
+
+## Conference poster
+
+The [A3 poster](poster/poster.pdf) uses the same artwork, palette, and fonts, with all 18 speakers and their affiliations. Its [LuaLaTeX source](poster/poster.tex), editable copy, separate artwork, and bundled fonts live in `poster/`. See the [poster instructions](poster/README.md) for compilation and printing. Run `node poster/sync-content.mjs` to refresh its copy from the website data.

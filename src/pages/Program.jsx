@@ -181,6 +181,10 @@ export default function Program() {
     <>
       <PageHeading page="program" />
       <div className="program-content wide">
+        <p className="program-venue">
+          All talks will be held at Cheung On Tak Lecture Theater (LT-E), 1/F
+          Academic Building.
+        </p>
         <section
           className={`week-section view-${view}`}
           aria-labelledby="week-title"
