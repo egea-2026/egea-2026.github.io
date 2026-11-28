@@ -15,11 +15,11 @@ export const campusDocuments = [
   },
 ];
 export const practicalDetails = [
-  { icon: "pin", label: "Venue", value: "TBA" },
   {
-    icon: "clipboard",
-    label: "Registration Desk",
-    value: "TBA",
+    icon: "pin",
+    label: "Venue",
+    value:
+      "Cheung On Tak Lecture Theater (LT-E), 1/F Academic Building, HKUST",
   },
   { icon: "sun", label: "Weather", value: "Mild December weather (15–22°C)" },
   { icon: "coins", label: "Currency", value: "Hong Kong Dollar (HKD)" },

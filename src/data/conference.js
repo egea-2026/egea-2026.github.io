@@ -69,14 +69,6 @@ export const quickLinks = [
   },
 ];
 export const footerPanels = {
-  Contact: {
-    title: "Contact & conference updates",
-    paragraphs: [
-      "The conference takes place at the Hong Kong University of Science and Technology, Clear Water Bay, Kowloon, Hong Kong SAR.",
-      "A dedicated conference contact and registration details will be announced here. For general campus information, visit the university website.",
-    ],
-    link: { label: "Visit HKUST", href: "https://hkust.edu.hk/" },
-  },
   Privacy: {
     title: "Privacy",
     paragraphs: [
